@@ -1,0 +1,26 @@
+.devise__form-container.d-flex.justify-content-center.align-items-center
+  .container.p-3.w-50.border.rounded.shadow-sm
+  %h2.mb-3 Edit
+  = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    = f.error_notification
+    .mb-3
+      = f.label :email, class: 'form-label'
+      = f.email_field :email, required: true, autofocus: true, autocomplete: 'email', class: 'form-control'
+    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      %p= "Currently waiting confirmation for: #{resource.unconfirmed_email}"
+    .mb-3
+      = f.label :email, class: 'form-label'
+      = f.password_field :password, hint: "leave it blank if you don't want to change it", required: false, autofocus: true, autocomplete: 'new-password', class: 'form-control'
+    .mb-3
+      = f.label :password_confirmation, class: 'form-label'
+      = f.password_field :password_confirmation, required: false, autofocus: true, autocomplete: 'new-password', class: 'form-control'
+    .mb-3
+      =f.label :password class: 'form-label'
+      = f.password_field :password, required: true, autofocus: true, automplete: 'current-password', class: 'form-control'
+    .mb-3.d-flex.align-items-center.justify-content-center
+      = f.submit 'Confirm Changes', class: 'btn btn-lg btn-primary rounded-pill'
+    .mb-3
+      %h3 Cancel my with account
+      .mb-3.d-flex.align-items-center.justify-content-center
+        = button_to 'Cancel my account', registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete
+    = link_to "Back", :back
