@@ -1,0 +1,14 @@
+.navbar__container{ data: { controller: 'navbar' } }
+  .navbar__contents
+    = link_to '#', class: 'navbar__logo' do
+      = image_tag 'https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png'
+
+    %ul.navbar__nav-items
+      - if user_signed_in?
+        %li.navbar__nav-item
+          = link_to 'Ramen Ranger Map', '#', class: 'is-link'
+        %li.navbar__nav-item
+          = link_to 'Hall of Fame', '#', class: 'is-link'
+        %li.navbar__dropdown{ data: { 'navbar-target': 'dropdown'} }
+          %i.fa-solid.fa-bars.fa-xl
+          .navbar__dropdown-menu
