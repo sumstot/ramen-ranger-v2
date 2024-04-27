@@ -1,4 +1,2 @@
-.container
-  %h1.mb-5 welcome to the index page for reviews
-  %p.pd-5 testtesttest
-  
+- @ramen_reviews.each do |ramen_review|
+  = render 'review_card', ramen_review: ramen_review
