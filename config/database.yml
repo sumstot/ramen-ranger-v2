@@ -24,6 +24,8 @@ default: &default
 development:
   <<: *default
   database: ramen_ranger_v2_development
+  username: soren
+  password: <%= ENV["SOREN_PASSWORD"] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -82,5 +84,5 @@ test:
 production:
   <<: *default
   database: ramen_ranger_v2_production
-  username: ramen_ranger_v2
-  password: <%= ENV["RAMEN_RANGER_V2_DATABASE_PASSWORD"] %>
+  username: soren
+  password: <%= ENV["SOREN_PASSWORD"] %>

@@ -1,8 +1,7 @@
-source 'https://rubygems.org'
+  source 'https://rubygems.org'
 git_source(:github) { |repo| 'https://github.com/#{repo}.git' }
 
-ruby '3.2.2'
-
+ruby '3.3.0'
 
 gem 'rails', '~> 7.1.0', '>= 7.1.0'
 gem 'sprockets-rails'
@@ -12,7 +11,7 @@ gem 'jsbundling-rails'
 gem 'turbo-rails'
 gem 'stimulus-rails'
 gem 'jbuilder'
-gem 'redis', '~> 5.0.7'
+gem 'redis'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem 'kredis'
@@ -50,6 +49,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
+  gem 'bullet'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem 'rack-mini-profiler'

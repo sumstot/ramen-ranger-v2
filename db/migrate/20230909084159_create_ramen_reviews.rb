@@ -7,7 +7,7 @@ class CreateRamenReviews < ActiveRecord::Migration[7.0]
       t.bigint :price, default: 0, null: false
       t.references :restaurant, foreign_key: true
       t.integer :likes_count, default: 0, null: false
-      
+
       t.timestamps
     end
   end

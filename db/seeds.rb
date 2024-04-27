@@ -1,6 +1,6 @@
 puts 'Destroying all reviews and restaurants'
 Restaurant.destroy_all
-RamenReviews.destroy_all
+RamenReview.destroy_all
 
 puts 'Generating new restaurants'
 
@@ -26,7 +26,7 @@ jpn_names = ['(善ラボラトリー)', ' (ぶたのほし)', '(神戸牛らー�
   restaurant = Restaurant.create!(
     name: names[names_index],
     jpn_name: jpn_names[names_index],
-    year_opened: rand(1970..2022)
+    year_opened: Date.new(rand(1970..2022))
   )
   restaurant.address = addresses[address_index]
   restaurant.prefecture = %w[Osaka Wakayama Kyoto Hyogo Tokyo].sample
@@ -44,10 +44,9 @@ soup = %w[niboshi tonkotsu shoyu shio tantanmen miso chukasoba sokisoba]
     score: rand(3.0..5.0),
     restaurant_id: Restaurant.all.sample.id
   )
-  ramen_review.description = "This is a unique #{ramen_review.soup} ramen"
   ramen_review.review = "A solid bowl of #{ramen_review.soup} ramen"
   ramen_review.score = ramen_review.score.round(1)
-  ramen_review.images.attach(
+  ramen_review.review_images.build.image.attach(
     io: File.open(File.join(Rails.root, "app/assets/images/ramen/ramen#{index}.jpg")),
     filename: "ramen#{index}.jpg"
   )
