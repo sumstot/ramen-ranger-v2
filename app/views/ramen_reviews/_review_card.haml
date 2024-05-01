@@ -8,6 +8,6 @@
         - score = ramen_review.score
         %p.review-card__score= score
         - review_card_score_stars(score).each do |star|
-          %box-icon{ name: star[:name], type: star[:type], color: star_color(score) }
+          %box-icon{ name: star[:name], type: star[:type], color: star[:color] }
     %div= ramen_review.restaurant.name
     %div= ramen_review.restaurant.jpn_name

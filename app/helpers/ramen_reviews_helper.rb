@@ -5,16 +5,17 @@ module RamenReviewsHelper
 
     rounded_score.times do |i|
       if i != rounded_score - 1
-        stars << { name: 'star', type: 'solid' }
+        stars << { name: 'star', type: 'solid', color: star_color(score) }
       else
         if (rounded_score - score).positive?
-          stars << { name: 'star-half', type: 'solid' }
+          stars << { name: 'star-half', type: 'solid', color: star_color(score) }
         else
-          stars << { name: 'star', type: 'solid' }
+          stars << { name: 'star', type: 'solid', color: star_color(score) }
         end
       end
     end
 
+    (5 - stars.length).times { stars << { name: 'star', type: 'solid', color: '#e0e1e0' } }
     stars
   end
 
@@ -29,3 +30,5 @@ module RamenReviewsHelper
     end
   end
 end
+
+#  E0E1E0
