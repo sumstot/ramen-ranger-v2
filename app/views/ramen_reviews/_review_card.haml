@@ -1,3 +1,4 @@
-.w-50
-  .w-100= image_tag(ramen_review.review_images.first.image)
+.review-card__container
+  .mb-2
+    = image_tag(ramen_review.review_images.first.image)
   %div= ramen_review.restaurant.name
