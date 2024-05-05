@@ -36,6 +36,7 @@ gem 'browser'
 gem 'pry-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
+gem 'geocoder'
 gem 'rubocop-rails', require: false
 
 group :development, :test do
