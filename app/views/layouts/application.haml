@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %title Ramen Ranger
+    %meta{ name: 'viewport', content: 'width=device-width,initial-scale=1' }
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
+    - if Rails.env.development?
+      = hotwire_livereload_tags
+    %script{ src: 'https://unpkg.com/boxicons@2.1.4/dist/boxicons.js' }
+    %script{ src: "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google.maps_api_key}&callback=console.debug&libraries=maps,marker&v=beta", async: true }
+    %link{ href: 'https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css", rel: "stylesheet' }
+
+  %body
+    = yield

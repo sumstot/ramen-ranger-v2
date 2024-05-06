@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   root 'ramen_reviews#index'
+
+  get '/map', to: 'restaurants#map'
 end
