@@ -25,6 +25,7 @@ export default class extends Controller {
     const mapOptions = {
       center: { lat: 34.672314, lng: 135.484802 },
       zoom: 10,
+      mapId: '5aa4719e81f42be2',
     }
     this.map = new google.maps.Map(this.mapTarget, mapOptions)
     this.addMarkersToMap()
@@ -33,7 +34,7 @@ export default class extends Controller {
   addMarkersToMap() {
     this.markersValue.forEach((marker) => {
       console.log(marker)
-      new google.maps.Marker({
+      new google.maps.marker.AdvancedMarkerElement({
         map: this.map,
         position: { lat: parseFloat(marker.lat), lng: parseFloat(marker.lng) }
       })
