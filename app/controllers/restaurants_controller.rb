@@ -2,7 +2,13 @@ class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: :show
 
   def map
-    # render 'shared/map'
+    @restaurants = Restaurant.all
+    @markers = @restaurants.geocoded.map do |restaurant|
+      {
+        lat: restaurant.latitude,
+        lng: restaurant.longitude
+      }
+    end
   end
 
   private
