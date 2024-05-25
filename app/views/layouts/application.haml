@@ -10,9 +10,6 @@
     - if Rails.env.development?
       = hotwire_livereload_tags
     %script{ src: 'https://unpkg.com/boxicons@2.1.4/dist/boxicons.js' }
-    -# = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google.maps_api_key}&libraries=places&callback=dispatchMapsEvent", async: true, defer: true, "data-turbolinks-eval": false
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google.maps_api_key}&libraries=places,geometry,marker&callback=initMap", async: true, defer: true, "data-turbolinks-eval": false
-    %link{ href: 'https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css", rel: "stylesheet' }
-
   %body
     = yield
