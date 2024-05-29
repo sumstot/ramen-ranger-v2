@@ -46,11 +46,13 @@ soup = %w[niboshi tonkotsu shoyu shio tantanmen miso chukasoba sokisoba]
   )
   ramen_review.review = "A solid bowl of #{ramen_review.soup} ramen"
   ramen_review.score = ramen_review.score.round(1)
-  ramen_review.review_images.build.image.attach(
-    io: File.open(File.join(Rails.root, "app/assets/images/ramen/ramen#{index}.jpg")),
-    filename: "ramen#{index}.jpg"
-  )
-  index += 1
+  3.times do
+    ramen_review.review_images.build.image.attach(
+      io: File.open(File.join(Rails.root, "app/assets/images/ramen/ramen#{index}.jpg")),
+      filename: "ramen#{index}.jpg"
+    )
+    index == 20 ? index = 1 : index += 1
+  end
   ramen_review.save
 end
 

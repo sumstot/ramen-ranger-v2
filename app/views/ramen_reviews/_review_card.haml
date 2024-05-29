@@ -1,6 +1,10 @@
 .review-card__container.mb-6
-  .mb-2
-    = image_tag(ramen_review.review_images.first.image)
+  .swiper{ data: { controller: 'swiper', swiper_target: 'swiper' } }
+    .swiper-wrapper
+      - ramen_review.review_images.each do |review_image|
+        .swiper-slide
+          = image_tag(review_image.image)
+    .swiper-pagination{ data: { swiper_target: 'pagination' } }
   .review-card__content.pl-4.pr-4
     .d-flex.justify-content-between.align-items-center
       %box-icon{ name: 'heart' }

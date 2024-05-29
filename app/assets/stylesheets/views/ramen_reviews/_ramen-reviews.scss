@@ -2,6 +2,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(33%, 1fr));
   @include mediaquery-mobile {
-    grid-template-columns: 1fr;
+    display: block;
   }
 }
