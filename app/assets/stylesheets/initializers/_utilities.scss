@@ -48,6 +48,12 @@ $_base-unit: 4px;
   }
 }
 
+@for $i from 1 through 10 {
+  .w-#{$i} {
+    height: $i * 10% !important;
+  }
+}
+
 .d-flex {
   display: flex !important;
 }

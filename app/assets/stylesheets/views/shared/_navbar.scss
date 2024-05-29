@@ -1,0 +1,17 @@
+.navbar__container {
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  padding: 8px 16px;
+  line-height: 1;
+}
+
+
+.navbar__logo {
+  img {
+    width: 48px;
+    vertical-align: initial;
+  }
+}
