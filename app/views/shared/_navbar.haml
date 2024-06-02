@@ -1,5 +1,20 @@
-.navbar__container.w-100.d-flex.justify-content-between.align-items-middle
+.navbar__container.w-100.d-flex.justify-content-between.align-items-middle{ data: { controller: 'navbar' } }
   .navbar__logo
-    = image_tag('ramenlogo.png')
-  .navbar__navigation-container
+    = link_to root_path do
+      = image_tag('ramenlogo.png')
+  %input.navbar__search{ placeholder: 'search' }
+  .navbar__navigation-container{ data: { action: 'click->navbar#toggleDropdown click@window->navbar#closeDropdown' } }
     %box-icon{ name: 'menu', size: '48px' }
+    .navbar__nav-links.is-hidden{ data: { navbar_target: 'navlinks' } }
+      .navbar__nav-link
+        = link_to restaurants_path, class: 'd-flex align-items-center' do
+          %box-icon{ name: 'store-alt' }
+          %p.navbar__nav-link-text Restaurants
+      .navbar__nav-link
+        = link_to map_path, class: 'd-flex align-items-center' do
+          %box-icon{ name: 'map', type: 'solid' }
+          %p.navbar__nav-link-text Ramen Map
+      .navbar__nav-link
+        = link_to hall_of_fame_path, class: 'd-flex align-items-center' do
+          %box-icon{ name: 'star', type: 'solid', color: '#e74d30' }
+          %p.navbar__nav-link-text Hall of Fame
