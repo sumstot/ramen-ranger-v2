@@ -1,3 +1,4 @@
+= render 'shared/navbar'
 .ramen-reviews__container
   - @ramen_reviews.each do |ramen_review|
     = render 'review_card', ramen_review: ramen_review

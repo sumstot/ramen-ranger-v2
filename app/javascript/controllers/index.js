@@ -7,5 +7,8 @@ import { application } from "./application"
 import MapController from "./map_controller"
 application.register("map", MapController)
 
+import NavbarController from "./navbar_controller"
+application.register("navbar", NavbarController)
+
 import SwiperController from "./swiper_controller"
 application.register("swiper", SwiperController)
