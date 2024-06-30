@@ -51,8 +51,16 @@
 }
 
 .navbar__search {
+  position: relative;
   align-self: center;
   input {
     min-width: 66vw;
   }
+}
+
+.navbar__clear-search {
+  position: absolute;
+  align-self: center;
+  right: 17%;
+  cursor: pointer;
 }
