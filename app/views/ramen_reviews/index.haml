@@ -1,4 +1,5 @@
 = render 'shared/navbar'
-.ramen-reviews__container
-  - @ramen_reviews.each do |ramen_review|
-    = render 'review_card', ramen_review: ramen_review
+= turbo_frame_tag 'search', target: "_top" do
+  .ramen-reviews__container
+    - @ramen_reviews.each do |ramen_review|
+      = render 'review_card', ramen_review: ramen_review

@@ -49,3 +49,10 @@
   margin-bottom: 0;
   padding-left: 8px;
 }
+
+.navbar__search {
+  align-self: center;
+  input {
+    min-width: 66vw;
+  }
+}

@@ -2,7 +2,11 @@
   .navbar__logo
     = link_to root_path do
       = image_tag('ramenlogo.png')
-  %input.navbar__search{ placeholder: 'search' }
+  - if current_page?(root_path)
+    = search_form_for @q, url: root_path, method: :get, class: 'navbar__search', data: { turbo_frame: 'search' } do |f|
+      = f.search_field :soup_or_restaurant_name_or_restaurant_jpn_name_or_restaurant_station_or_restaurant_city_or_restaurant_prefecture_cont, placeholder: 'Search for soup, restaurant, city, prefecture, or staton'
+
+
   .navbar__navigation-container{ data: { action: 'click->navbar#toggleDropdown click@window->navbar#closeDropdown' } }
     %box-icon{ name: 'menu', size: '48px' }
     .navbar__nav-links.is-hidden{ data: { navbar_target: 'navlinks' } }
