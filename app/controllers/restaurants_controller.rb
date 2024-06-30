@@ -18,7 +18,7 @@ class RestaurantsController < ApplicationController
   end
 
   def hall_of_fame
-    
+
   end
 
   private

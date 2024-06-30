@@ -3,7 +3,7 @@ class RamenReviewsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # @query = RamenReview.ransack(params[:q])
-    @ramen_reviews = RamenReview.all.includes(:review_images)
+    @q = RamenReview.includes(:review_images).ransack(params[:q])
+    @ramen_reviews = @q.result.includes(:restaurant).distinct(true)
   end
 end
