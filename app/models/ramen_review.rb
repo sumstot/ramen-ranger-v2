@@ -8,4 +8,12 @@ class RamenReview < ApplicationRecord
   def update_restaurant_average_score
     restaurant.update_average_score
   end
+
+   def self.ransackable_attributes(auth_object = nil)
+    ['soup']
+   end
+
+  def self.ransackable_associations(auth_object = nil)
+    ['restaurant']
+  end
 end
