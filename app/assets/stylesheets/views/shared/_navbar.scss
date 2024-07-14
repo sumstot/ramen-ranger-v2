@@ -55,7 +55,16 @@
   align-self: center;
   input {
     min-width: 66vw;
+    padding-left: 32px;
   }
+}
+
+.navbar__search-icon {
+  position: absolute;
+  left: 17%;
+  z-index: 3;
+  align-self: center;
+  margin-left: 4px;
 }
 
 .navbar__clear-search {

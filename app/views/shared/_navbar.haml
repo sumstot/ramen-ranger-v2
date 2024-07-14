@@ -3,10 +3,10 @@
     = link_to root_path do
       = image_tag('ramenlogo.png')
   - if current_page?(root_path)
-    .navbar__search{ data: { controller: 'search' } }
+    %box-icon.navbar__search-icon{ name: 'search' }
+    .navbar__search
       = search_form_for @q, url: root_path, method: :get, data: { turbo_frame: 'search' } do |f|
-        = f.search_field :soup_or_restaurant_name_or_restaurant_jpn_name_or_restaurant_station_or_restaurant_city_or_restaurant_prefecture_cont, data: { search_target: 'search-form' }, placeholder: 'Search for soup, restaurant, city, prefecture, or staton', oninput: 'this.form.requestSubmit()'
-      -# %box-icon.navbar__clear-search{ name: 'x', data: { search_target: 'clear-search-button', action: 'click->search#clearSearch' } }
+        = f.search_field :soup_or_restaurant_name_or_restaurant_jpn_name_or_restaurant_station_or_restaurant_city_or_restaurant_prefecture_cont, placeholder: 'soup, restaurant, city, prefecture, or staton', oninput: 'this.form.requestSubmit()', class: 'form-control'
 
   .navbar__navigation-container{ data: { action: 'click->navbar#toggleDropdown click@window->navbar#closeDropdown' } }
     %box-icon{ name: 'menu', size: '48px' }
