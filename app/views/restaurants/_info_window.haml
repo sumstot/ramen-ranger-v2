@@ -1,0 +1,19 @@
+.info-window__image-container.swiper{ data: { controller: 'swiper', swiper_target: 'swiper' } }
+  - if review_images.present?
+    .swiper-wrapper
+      - review_images.each do |review_image|
+        .swiper-slide
+          = image_tag(review_image.image)
+    .swiper-pagination{ data: { swiper_target: 'pagination' } }
+%div
+  = restaurant.name
+%div
+  = restaurant.jpn_name
+%div
+  = format('%.2f' % restaurant.average_score)
+  - review_card_score_stars(restaurant.average_score).each do |star|
+    %box-icon.bx-sm{ name: star[:name], type: star[:type], color: star[:color], size: 'xs' }
+%div
+  = restaurant.year_opened
+%div
+  = "Reviews: #{restaurant.ramen_reviews.count}"

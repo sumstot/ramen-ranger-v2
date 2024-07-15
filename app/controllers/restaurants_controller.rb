@@ -8,11 +8,14 @@ class RestaurantsController < ApplicationController
 
   def map
     @restaurants = Restaurant.all
+
     @markers = @restaurants.geocoded.map do |restaurant|
+      @review_images = restaurant.ramen_reviews.flat_map(&:review_images).take(10)
       {
         lat: restaurant.latitude,
         lng: restaurant.longitude,
-        color: helpers.star_color(restaurant.average_score)
+        color: helpers.star_color(restaurant.average_score),
+        info_window: render_to_string(partial: 'restaurants/info_window', locals: { restaurant:, review_images: @review_images })
       }
     end
   end
