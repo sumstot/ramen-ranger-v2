@@ -1,5 +1,6 @@
 .restaurant-card__container {
   width: 100%;
+  margin-bottom: 16px;
 }
 
 .restaurant-card__title {
@@ -28,8 +29,3 @@
     object-fit: cover;
   }
 }
-
-// .restaurant-card__display-image {
-//   aspect-ratio: 1;
-//   width: 150px;
-// }

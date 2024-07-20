@@ -18,7 +18,7 @@ $_base-unit: 4px;
   }
 
   .ml-#{$i} {
-    padding-left: $i * $_base-unit !important;
+    margin-left: $i * $_base-unit !important;
   }
 
   .p-#{$i} {
@@ -51,6 +51,12 @@ $_base-unit: 4px;
 @for $i from 1 through 10 {
   .w-#{$i} {
     height: $i * 10% !important;
+  }
+}
+
+@for $i from 1 through 8 {
+  .gap-#{i} {
+    gap: $i * $_base_unit !important;
   }
 }
 
