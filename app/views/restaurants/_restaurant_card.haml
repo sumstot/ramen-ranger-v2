@@ -1,0 +1,13 @@
+.restaurant-card__container
+  %h3= restaurant.name
+  .restaurant-card__info
+    %p= "#{restaurant.station}, #{restaurant.prefecture}"
+  .restaurant-card__images-container
+    - restaurant.display_images.each do |display_image|
+      .restaurant-card__display-image
+        = image_tag display_image.image
+  .d-flex.align-items-center
+    - score = restaurant.average_score
+    %p.restaurant-card__score= score
+    - review_card_score_stars(score).each do |star|
+      %box-icon{ name: star[:name], type: star[:type], color: star[:color] }

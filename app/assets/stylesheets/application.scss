@@ -2,6 +2,7 @@
 @import 'font-awesome';
 @import 'swiper/swiper-bundle.css';
 
+@import 'initializers/variants';
 @import 'initializers/media-queries';
 @import 'initializers/utilities';
 
@@ -12,3 +13,6 @@
 
 @import 'views/ramen_reviews/ramen-reviews';
 @import 'views/ramen_reviews/review-card';
+
+@import 'views/restaurants/restaurants';
+@import 'views/restaurants/restaurant-card';
