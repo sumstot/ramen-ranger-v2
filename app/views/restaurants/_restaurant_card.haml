@@ -6,8 +6,10 @@
     - restaurant.display_images.each do |display_image|
       .restaurant-card__display-image
         = image_tag display_image.image
-  .d-flex.align-items-center
+  .d-flex.align-items-center.gap-2
     - score = restaurant.average_score
     %p.restaurant-card__score= score
     - review_card_score_stars(score).each do |star|
       %box-icon{ name: star[:name], type: star[:type], color: star[:color] }
+    %box-icon{ name: 'message-rounded-dots', type: 'solid', color: '#beb99b' }
+    %span= restaurant.ramen_reviews.count

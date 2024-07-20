@@ -12,14 +12,23 @@ class Restaurant < ApplicationRecord
   end
 
   def display_images
-    first_images = ramen_reviews.order(id: :desc).flat_map { |ramen_review| ramen_review.review_images.first }.first(3)
-    binding.pry
-    if ramen_reviews.count < 3
-      remaining_images = ramen_reviews.order(id: :desc).flat_map(&:review_images).reject { |img| first_images.include?(img) }
-      remaining_images.take(3 - first_images.size)
-    else
-      first_images
-    end
+    first_images = fetch_first_images
+    additional_images = fetch_additional_images(first_images) if first_images.size < 3
+    (first_images + additional_images.to_a).uniq(&:id)
+  end
+
+  private
+
+  def fetch_first_images
+    ramen_reviews.order(id: :desc)
+                 .flat_map { |ramen_review| ramen_review.review_images.order(id: :desc).first }
+                 .take(3)
+  end
+
+  def fetch_additional_images(first_images)
+    all_images = ramen_reviews.flat_map { |review| review.review_images.order(id: :desc) }
+    remaining_images = all_images - first_images
+    remaining_images.first(3 - first_images.size)
   end
 
   def self.ransackable_attributes(auth_object = nil)
