@@ -1,6 +1,8 @@
 .restaurant-card__container {
   width: 100%;
   margin-bottom: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid $_border-light-gray;
 }
 
 .restaurant-card__title {
@@ -16,16 +18,37 @@
 
 .restaurant-card__score {
   margin: 0;
-  padding-right: 8px;
+  padding-right: 8px
 }
 
 .restaurant-card__images-container {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 2px;
   img {
-    max-width: 128px;
+    width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
   }
+}
+
+.restaurant-card__reviews-link {
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  gap: 4px;
+  color: inherit;
+  &:hover {
+    color: $_link-hover-yellow
+  }
+}
+
+.restaurant-card__bookmark {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.restaurant-card__days-closed-text {
+  padding-left: 4px;
+  font-size: 12px;
 }
