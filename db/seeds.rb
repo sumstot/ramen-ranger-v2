@@ -22,6 +22,7 @@ names_index = 0
 
 names = ['Zen Laboratory', 'Buta no Hoshi', 'Kobe Gyu Ramen Yazawa', 'Kamigata Rainbow', 'Tonkotsu Mazesoba Kozou+', 'Menya Teru Nakatsu', 'Strike Ken', 'Menya New Classic', 'SPICExRAMEN SUSUSU', 'Moeyo Mensuke' ]
 jpn_names = ['(善ラボラトリー)', ' (ぶたのほし)', '(神戸牛らーめん八坐)', '(上方レインボー)', '(豚骨まぜそばKOZOU＋)', '(麺や輝中津店)', '(ストライク軒)', '(メンヤニュークラシック)', '(SPICExRAMENススス)',  '(燃えよ麺助)' ]
+days = (1..7).to_a
 10.times do
   restaurant = Restaurant.create!(
     name: names[names_index],
@@ -31,6 +32,7 @@ jpn_names = ['(善ラボラトリー)', ' (ぶたのほし)', '(神戸牛らー�
   restaurant.address = addresses[address_index]
   restaurant.prefecture = %w[Osaka Wakayama Kyoto Hyogo Tokyo].sample
   restaurant.station = %w[Sannomiya Umeda Fukushima Shibuya Kawaramachi Amagasaki].sample
+  restaurant.days_closed = days.sample(2).sort
   restaurant.save
   names_index += 1
   address_index += 1
