@@ -6,10 +6,15 @@
     - restaurant.display_images.each do |display_image|
       .restaurant-card__display-image
         = image_tag display_image.image
-  .d-flex.align-items-center.gap-2
+  .d-flex.align-items-center
     - score = restaurant.average_score
-    %p.restaurant-card__score= score
+    %p.restaurant-card__score= format('%.2f', score)
     - review_card_score_stars(score).each do |star|
       %box-icon{ name: star[:name], type: star[:type], color: star[:color] }
-    %box-icon{ name: 'message-rounded-dots', type: 'solid', color: '#beb99b' }
-    %span= restaurant.ramen_reviews.count
+    = link_to restaurant_path(restaurant.id), class: 'restaurant-card__reviews-link' do
+      %box-icon{ name: 'message-rounded-dots', type: 'solid', color: '#beb99b' }
+      %span= restaurant.ramen_reviews.count
+    %box-icon.restaurant-card__bookmark{ name: 'bookmark' }
+  .d-flex.align-items-center.pt-2
+    %box-icon{ name: 'calendar-x', color: '#beb99b' }
+    %span.restaurant-card__days-closed-text Sat, Sun
