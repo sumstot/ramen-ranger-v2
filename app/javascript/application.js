@@ -2,3 +2,4 @@
 import "@hotwired/turbo-rails"
 import './init_map'
 import "./controllers"
+// import 'swiper/swiper-bundle.css'
