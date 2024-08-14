@@ -1,6 +1,17 @@
+puts 'Destroying admin'
+User.where(admin: true).destroy_all
+
 puts 'Destroying all reviews and restaurants'
 Restaurant.destroy_all
 RamenReview.destroy_all
+
+puts 'Generating admin'
+User.find_or_create_by!(email: 'soren@example.com') do |user|
+  user.username = 'the_ramen_ranger'
+  user.password = 'securepassword'
+  user.password_confirmation = 'securepassword'
+  user.admin = true
+end
 
 puts 'Generating new restaurants'
 
