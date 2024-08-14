@@ -1,6 +1,5 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: :show
-   :calculate_average_score
 
   def index
     @restaurants = Restaurant.all
