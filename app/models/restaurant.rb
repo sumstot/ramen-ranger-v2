@@ -3,8 +3,6 @@ class Restaurant < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
-  validate :validate_days_closed if proc { days_closed.present? }
-
   DAYS_OF_WEEK = %w[Sun Mon Tues Wed Thrs Fri Sat Holiday].freeze
 
   def update_average_score
