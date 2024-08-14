@@ -1,13 +1,26 @@
+.restaurant-card__link {
+  text-decoration: none;
+  color: initial;
+}
+
 .restaurant-card__container {
   width: 100%;
   margin-bottom: 16px;
   padding: 16px 0;
   border-bottom: 1px solid $_border-light-gray;
+  &:hover {
+    cursor: pointer;
+    .restaurant-card__title {
+      color: $_link-hover-yellow;
+    }
+  }
 }
 
 .restaurant-card__title {
-  font-size: 24px;
   font-weight: 600;
+  &-jpn{
+    font-size: 16px;
+  }
 }
 
 .restaurant-card__info {
@@ -17,8 +30,9 @@
 }
 
 .restaurant-card__score {
-  margin: 0;
-  padding-right: 8px
+  padding-left: 8px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .restaurant-card__images-container {
@@ -46,6 +60,10 @@
 .restaurant-card__bookmark {
   margin-left: auto;
   cursor: pointer;
+  &:hover {
+    cursor: pointer;
+    fill: $_link-hover-yellow;
+  }
 }
 
 .restaurant-card__days-closed-text {

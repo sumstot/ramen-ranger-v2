@@ -1,21 +1,23 @@
-.restaurant-card__container
-  %h3= restaurant.name
-  %h4= restaurant.jpn_name
-  .restaurant-card__info
-    %p= "#{restaurant.station}, #{restaurant.prefecture}"
-  .restaurant-card__images-container
-    - restaurant.display_images.each do |display_image|
-      .restaurant-card__display-image
-        = image_tag display_image.image
-  .d-flex.align-items-center
-    - score = restaurant.average_score
-    %p.restaurant-card__score= format('%.2f', score)
-    - review_card_score_stars(score).each do |star|
-      %box-icon{ name: star[:name], type: star[:type], color: star[:color] }
-    = link_to restaurant_path(restaurant.id), class: 'restaurant-card__reviews-link' do
-      %box-icon{ name: 'message-rounded-dots', type: 'solid', color: '#beb99b' }
-      %span= restaurant.ramen_reviews.count
-    %box-icon.restaurant-card__bookmark{ name: 'bookmark' }
-  .d-flex.align-items-center.pt-2
-    %box-icon{ name: 'calendar-x', color: '#beb99b' }
-    %span.restaurant-card__days-closed-text= restaurant.display_days_closed
+= link_to restaurant_path(restaurant), class: 'restaurant-card__link' do
+  .restaurant-card__container
+    %h3.restaurant-card__title= restaurant.name
+    %h4.restaurant-card__title-jpn= restaurant.jpn_name
+    .restaurant-card__info
+      %p= "#{restaurant.station}, #{restaurant.prefecture}"
+    .restaurant-card__images-container
+      - restaurant.display_images.each do |display_image|
+        .restaurant-card__display-image
+          = image_tag display_image.image
+    .d-flex.align-items-center.pt-2
+      - score = restaurant.average_score
+      .d-flex
+        - review_card_score_stars(score).each do |star|
+          %box-icon{ name: star[:name], type: star[:type], color: star[:color] }
+        .restaurant-card__score= format('%.2f', score)
+      = link_to restaurant_path(restaurant.id), class: 'restaurant-card__reviews-link' do
+        %box-icon{ name: 'message-rounded-dots', type: 'solid', color: '#beb99b' }
+        %span= restaurant.ramen_reviews.count
+      %box-icon.restaurant-card__bookmark{ name: 'bookmark' }
+    .d-flex.align-items-center.pt-2
+      %box-icon{ name: 'calendar-x', color: '#beb99b' }
+      %span.restaurant-card__days-closed-text= restaurant.display_days_closed
