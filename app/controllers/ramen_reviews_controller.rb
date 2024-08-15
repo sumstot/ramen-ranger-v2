@@ -8,13 +8,11 @@ class RamenReviewsController < ApplicationController
     @ramen_reviews = @q.result.includes(:restaurant).distinct(true)
   end
 
-  def show
+  def new
 
   end
 
-  private
+  def create
 
-  def set_ramen_review
-    @ramen_review = RamenReview.find(params[:id])
   end
 end
