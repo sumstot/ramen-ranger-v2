@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_15_044310) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_15_075624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_15_044310) do
     t.string "name", default: "", null: false
     t.string "jpn_name", default: "", null: false
     t.float "average_score", default: 0.0, null: false
-    t.date "year_opened", null: false
+    t.date "date_opened"
     t.string "station", default: ""
     t.string "city", default: "", null: false
     t.string "prefecture", default: "", null: false
