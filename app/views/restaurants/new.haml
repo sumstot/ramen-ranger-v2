@@ -1,12 +1,22 @@
-.container
+.container.mt-4
   = simple_form_for @restaurant, data: { turbo: false } do |f|
     = f.error_notification
-    = f.input :name
-    = f.input :jpn_name
-    = f.input :year_opened, as: :date, start_year: Date.current.year, end_year: 1900, include_blank: true, allow_blank: true
-    = f.input :station
-    = f.input :city
-    = f.input :prefecture
-    = f.input :address
-    = f.input :days_closed, as: :check_boxes, collection: Restaurant::DAYS_OF_WEEK, label: 'Days Closed', item_wrapper_class: 'checkbox', include_hidden: false
-    = f.submit
+    .mb-3
+      = f.input :name, input_html: { class: 'form-control' }
+    .mb-3
+      = f.input :jpn_name, input_html: { class: 'form-control' }
+    .mb-3
+      = f.label :date_opened, input_html: { class: 'form-label' }
+      = f.input :date_opened, as: :date, label: false, start_year: Date.current.year, end_year: 1900, include_blank: true, allow_blank: true, wrapper_html: { class: 'd-flex' }, input_html: { class: 'form-select' }
+    .mb-3
+      = f.input :station, input_html: { class: 'form-control' }
+    .mb-3
+      = f.input :city, input_html: { class: 'form-control' }
+    .mb-3
+      = f.input :prefecture, input_html: { class: 'form-control' }
+    .mb-3
+      = f.input :address, input_html: { class: 'form-control' }
+    .mb-3
+      = f.input :days_closed, as: :check_boxes, collection: Restaurant::DAYS_OF_WEEK.each_with_index.map{ |day, index| [day, index] }, label: 'Days Closed', item_wrapper_class: 'form-check', include_hidden: false, input_html: { class: 'form-check-input' }
+    .mb-4.d-flex.align-items-center.justify-content-center
+      = f.submit class: 'btn btn-primary'
