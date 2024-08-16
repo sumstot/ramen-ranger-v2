@@ -1,5 +1,11 @@
 class Restaurant < ApplicationRecord
   has_many :ramen_reviews, dependent: :destroy
+
+  validates :name, presence: true
+  validates :jpn_name, presence: true
+  validates :address, presence: true
+  validates :prefecture, presence: true
+
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
