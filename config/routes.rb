@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get '/map', to: 'restaurants#map'
   get '/hall_of_fame', to: 'restaurants#hall_of_fame'
-  
+
   resources :restaurants
+  resources :ramen_reviews
 end

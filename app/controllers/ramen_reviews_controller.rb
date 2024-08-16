@@ -8,10 +8,15 @@ class RamenReviewsController < ApplicationController
   end
 
   def new
-
+    @ramen_review = RamenReview.new
   end
 
   def create
+    @ramen_review = RamenReview.new(ramen_review_params)
+  end
 
+  private
+
+  def ramen_review_params
   end
 end
