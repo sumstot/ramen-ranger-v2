@@ -1,6 +1,6 @@
 class RamenReview < ApplicationRecord
   belongs_to :restaurant
-  has_many :review_images, dependent: :destroy
+  has_many :review_images, -> { order(position: :asc) }, dependent: :destroy
   has_rich_text :content
   after_save :update_restaurant_average_score
 
