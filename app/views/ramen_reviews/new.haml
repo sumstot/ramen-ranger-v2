@@ -1,2 +1,8 @@
 .container.mt-4
-  
+  = simple_form_for @ramen_review, data: { turbo: false } do |f|
+    = f.rich_text_area :content
+    .form-select
+      = f.input :soup, as: :select, collection: RamenReview::SOUP_TYPES
+    .form-select
+      = f.input :score, as: :select, collection: RamenReview::POSSIBLE_SCORES, selected: 3.0, include_blank: false
+    = f.submit
