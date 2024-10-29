@@ -221,6 +221,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.7)
+    rack-mini-profiler (3.3.1)
+      rack (>= 1.2.0)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -410,6 +412,7 @@ DEPENDENCIES
   pg (~> 1.1)
   pry-rails
   puma (~> 6.4.0)
+  rack-mini-profiler
   rails (~> 7.2.0)
   ransack
   redis
