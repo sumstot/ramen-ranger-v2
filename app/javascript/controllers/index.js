@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import DropzoneController from "./dropzone_controller"
+application.register("dropzone", DropzoneController)
+
 import MapController from "./map_controller"
 application.register("map", MapController)
 
