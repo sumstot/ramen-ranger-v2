@@ -13,3 +13,5 @@ Rails.application.config.assets.version = "1.0"
 
 # Add assets from node_moduels folder for swiper js
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
+
+
