@@ -12,5 +12,9 @@ Rails.application.routes.draw do
   get '/hall_of_fame', to: 'restaurants#hall_of_fame'
 
   resources :restaurants
-  resources :ramen_reviews
+  resources :ramen_reviews do
+    collection do
+      post :upload_image
+    end
+  end
 end

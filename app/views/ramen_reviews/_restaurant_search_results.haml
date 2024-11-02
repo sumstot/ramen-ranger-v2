@@ -1,0 +1,18 @@
+-# app/views/ramen_reviews/_restaurant_search_results.html.haml
+= turbo_frame_tag 'restaurant-search-results' do
+  .restaurant-results.mt-2
+    - if params.dig(:q, :name_or_jpn_name_or_station_or_city_or_prefecture_cont).present?
+      - if @restaurants.present?
+        - @restaurants.each do |restaurant|
+          = link_to '#',
+            class: 'text-decoration-none',
+            data: { restaurant_id: restaurant.id,
+            restaurant_name: restaurant.name,
+            action: 'click->ramen-reviews--form#selectRestaurant' } do
+            .restaurant-option.p-2.border.rounded.mb-2
+              .restaurant-name= restaurant.name
+              .restaurant-name-jp= restaurant.jpn_name
+              .restaurant-details.text-muted
+                = [restaurant.station, restaurant.prefecture].compact.join(' • ')
+      - else
+        .text-muted No restaurants found

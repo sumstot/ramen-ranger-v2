@@ -42,4 +42,8 @@ class Restaurant < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     %w[title content soup name jpn_name station city prefecture]
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[ramen_reviews]
+  end
 end

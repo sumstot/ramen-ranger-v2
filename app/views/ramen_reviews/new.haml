@@ -1,16 +1,25 @@
-.container.mt-4
+.container.mt-4{ data: { controller: 'ramen-reviews--form'}}
+  .row.mb-4
+    %h5 Select Restaurant
+    = search_form_for @q, url: new_ramen_review_url, method: :get, data: { turbo_frame: 'restaurant-search-results' } do |sff|
+      = sff.search_field :name_or_jpn_name_or_station_or_city_or_prefecture_cont,
+        placeholder: 'Search for restaurant by name or location',
+        class: 'form-control',
+        oninput: 'this.form.requestSubmit()'
+    = render partial: 'restaurant_search_results', locals: { restaurants: @restaurants }
+  = link_to 'Or create new restaurant', new_restaurant_path
   = simple_form_for @ramen_review, data: { turbo: false } do |f|
+    = f.hidden_field :restaurant_id, data: { 'ramen-reviews--form-target': 'restaurantId' }
     = f.label 'Upload images'
     .dropzone.dropzone-default.dz-clickable.mb-4{ data: {
       controller: 'dropzone',
+      dropzone_url: upload_image_ramen_reviews_path(@ramen_review),
       'dropzone-max-file-size': 10,
       'dropzone-max-files': 10 } }
       .dz-message Drag and drop files here or click to upload
       = f.simple_fields_for :review_images do |review_image_form|
         = review_image_form.file_field :image, direct_upload: true, multiple: true, data: { dropzone_target: 'input' }
     = f.rich_text_area :content
-    .form-select
-      = f.input :soup, as: :select, collection: RamenReview::SOUP_TYPES
-    .form-select
-      = f.input :score, as: :select, collection: RamenReview::POSSIBLE_SCORES, selected: 3.0, include_blank: false
+    = f.input :soup, as: :select, collection: RamenReview::SOUP_TYPES, input_html: { class: 'form-select' }
+    = f.input :score, as: :select, collection: RamenReview::POSSIBLE_SCORES, selected: 3.0, include_blank: false, input_html: { class: 'form-select' }
     = f.submit
