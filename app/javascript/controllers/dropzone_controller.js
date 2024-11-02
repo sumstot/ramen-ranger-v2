@@ -1,15 +1,19 @@
-import { Controller } from 'stimulus'
+import { Controller } from '@hotwired/stimulus'
 import { DirectUpload } from '@rails/activestorage'
 import Dropzone from 'dropzone'
-import { getMetaValue, findElement, removeElement, insertAfter } from 'helpers'
+import { getMetaValue, findElement, removeElement, insertAfter } from '../helpers/dropzone'
 Dropzone.autoDiscover = false
 export default class extends Controller {
   static targets = ['input']
   connect() {
     console.log('dropzone controller connected')
+
     this.dropZone = createDropZone(this)
     this.hideFileInput()
     this.bindEvents()
+  }
+  inputTargetConnected() {
+    console.log(this.inputTarget)
   }
   // Private
   hideFileInput() {
