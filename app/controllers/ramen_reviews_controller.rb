@@ -9,6 +9,7 @@ class RamenReviewsController < ApplicationController
 
   def new
     @ramen_review = RamenReview.new
+    @review_image = @ramen_review.review_images.build
   end
 
   def create
@@ -18,5 +19,6 @@ class RamenReviewsController < ApplicationController
   private
 
   def ramen_review_params
+    params.require(:ramen_review).permit(:soup, :score, :review, :price, :restaurant_id, review_images: [:media])
   end
 end
