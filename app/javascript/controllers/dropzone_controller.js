@@ -51,6 +51,12 @@ export default class extends Controller {
     this.dropZone.on('queuecomplete', (file) => {
       this.submitButton.disabled = false
     })
+
+    this.dropZone.on('success', (file, response) => {
+      if (response && response.turbo_stream) {
+        Turbo.renderStreamMessage(response.turbo_stream)
+      }
+    })
   }
 
   get headers() {

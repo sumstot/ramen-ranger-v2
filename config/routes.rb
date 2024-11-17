@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :restaurants
   resources :ramen_reviews do
-    member do
+    collection do
       post :upload_image
     end
   end
