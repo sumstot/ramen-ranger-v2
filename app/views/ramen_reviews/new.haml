@@ -1,8 +1,12 @@
 .container.mt-4
   = simple_form_for @ramen_review, data: { turbo: false } do |f|
+    #upload-images.mb-4
+      - if @ramen_review.review_images.present?
+        = render @ramen_review.review_images
     = f.label 'Upload images'
     .dropzone.dropzone-default.dz-clickable.mb-4{ data: {
       controller: 'dropzone',
+      dropzone_url: upload_image_review_path(@ramen_review),
       'dropzone-max-file-size': 10,
       'dropzone-max-files': 10 } }
       .dz-message Drag and drop files here or click to upload
