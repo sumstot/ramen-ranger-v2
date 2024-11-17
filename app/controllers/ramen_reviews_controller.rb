@@ -19,6 +19,10 @@ class RamenReviewsController < ApplicationController
   private
 
   def ramen_review_params
-    params.require(:ramen_review).permit(:soup, :score, :review, :price, :restaurant_id, review_images: [:media])
+    params.require(:ramen_review).permit(:soup, :score, :review, :price, :restaurant_id, review_images: [:image])
+  end
+
+  def set_ramen_review
+    @ramen_review = RamenReview.find(params[:id])
   end
 end
