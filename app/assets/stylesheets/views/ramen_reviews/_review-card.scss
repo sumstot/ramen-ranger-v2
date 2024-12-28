@@ -3,15 +3,41 @@
   img {
     width: 100%;
   }
+  max-width: 448px;
 }
 
 .review-card__score {
   margin: 0;
   padding-right: 8px;
+  font-weight: 500;
 }
 
-// 3.5 < = #FEAA01
+.review-card__name-en {
+  font-weight: 600;
+}
 
-// 3.5 - 4.5 = #FE6A01
+.review-card__name-jp {
+  font-weight: 300;
+  font-size: 14px;
+}
 
-// 4.5 > = #E74D30
+.review-card__footer {
+  display: flex;
+  align-items: center;
+  span {
+    margin-right: 8px;
+  }
+}
+
+.review-card__icon {
+  font-size: 14px;
+  font-weight: 500;
+  background: #F2F4F7;
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.review-card__content {
+  padding: 16px 16px 0 16px;
+}
