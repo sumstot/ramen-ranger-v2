@@ -1,43 +1,43 @@
 $_base-unit: 4px;
 
 @for $i from 1 through 24 {
-  .m-#{$i} {
+  .m-#{$i * 4} {
     padding: $i * $_base-unit !important;
   }
 
-  .mt-#{$i} {
+  .mt-#{$i * 4} {
     margin-top: $i * $_base-unit !important;
   }
 
-  .mr-#{$i} {
+  .mr-#{$i * 4} {
     margin-right: $i * $_base-unit !important;
   }
 
-  .mb-#{$i} {
+  .mb-#{$i * 4} {
     margin-bottom: $i * $_base-unit !important;
   }
 
-  .ml-#{$i} {
+  .ml-#{$i * 4} {
     margin-left: $i * $_base-unit !important;
   }
 
-  .p-#{$i} {
+  .p-#{$i * 4} {
     padding: $i * $_base-unit !important;
   }
 
-  .pt-#{$i} {
+  .pt-#{$i * 4} {
     padding-top: $i * $_base-unit !important;
   }
 
-  .pr-#{$i} {
+  .pr-#{$i * 4} {
     padding-right: $i * $_base-unit !important;
   }
 
-  .pb-#{$i} {
+  .pb-#{$i * 4} {
     padding-bottom: $i * $_base-unit !important;
   }
 
-  .pl-#{$i} {
+  .pl-#{$i * 4} {
     padding-left: $i * $_base-unit !important;
   }
 }
