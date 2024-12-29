@@ -1,26 +1,22 @@
-.review-card__container.mb-24
-  .swiper{ data: { controller: 'swiper', swiper_target: 'swiper' } }
-    .swiper-wrapper
-      - ramen_review.review_images.each do |review_image|
-        .swiper-slide
-          = image_tag(review_image.image)
-    .swiper-pagination{ data: { swiper_target: 'pagination' } }
-  .review-card__content
-    .d-flex.justify-content-between.align-items-start
-      .name-container
-        .review-card__name-en= ramen_review.restaurant.name
-        .review-card__name-jp= ramen_review.restaurant.jpn_name
-      .d-flex.align-items-center
-        - score = ramen_review.score
-        - review_card_score_stars(score).each do |star|
-          %box-icon{ name: star[:name], type: star[:type], color: star[:color], size: '18px' }
-        %p.review-card__score.pl-4= score
-    .d-flex.align-items-center
-      %box-icon.pr-4{ name: 'train', type: 'solid', size: '18px'}
-      %span= "#{ramen_review.restaurant.station}, #{ramen_review.restaurant.prefecture}"
+.review-card__container
+  = link_to ramen_review_path(ramen_review) do
+    = image_tag(ramen_review.review_images.first.image)
+    .review-card__content
+      .d-flex.justify-content-between.align-items-start.mb-12
+        .name-container
+          .review-card__name-en.mb-4= ramen_review.restaurant.name
+          .review-card__name-jp= ramen_review.restaurant.jpn_name
+        .d-flex.align-items-center
+          - score = ramen_review.score
+          - review_card_score_stars(score).each do |star|
+            %box-icon{ name: star[:name], type: star[:type], color: star[:color], size: '18px' }
+          %p.review-card__score.pl-4= score
+      .d-flex.align-items-center.mb-8
+        %box-icon.pr-4{ name: 'train', type: 'solid', size: '18px'}
+        %span= "#{ramen_review.restaurant.station}, #{ramen_review.restaurant.prefecture}"
 
-    .review-card__footer
-      %span.review-card__icon
-        = ramen_review.soup
-      %span.review-card__created-at
-        = ramen_review.created_at.strftime('%Y/%m/%d')
+      .review-card__footer
+        %span.review-card__icon
+          = ramen_review.soup
+        %span.review-card__created-at
+          = ramen_review.created_at.strftime('%Y/%m/%d')

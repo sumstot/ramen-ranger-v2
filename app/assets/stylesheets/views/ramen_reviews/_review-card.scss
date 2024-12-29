@@ -1,14 +1,23 @@
 .review-card__container {
   padding: 16px;
+  max-width: 448px;
+  cursor: pointer;
   img {
     width: 100%;
+    aspect-ratio: 4/5;
   }
-  max-width: 448px;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.review-card__content {
+  padding: 16px 16px 0 16px;
 }
 
 .review-card__score {
   margin: 0;
-  padding-right: 8px;
   font-weight: 500;
 }
 
@@ -38,6 +47,8 @@
   display: inline-block;
 }
 
-.review-card__content {
-  padding: 16px 16px 0 16px;
+.review-card__created-at {
+  font-size: 14px;
+  font-weight: 300;
+  margin-left: auto;
 }
