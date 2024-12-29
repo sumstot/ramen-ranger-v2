@@ -50,7 +50,7 @@ days = (1..7).to_a
 end
 
 puts 'Generating reviews'
-soup = %w[niboshi tonkotsu shoyu shio tantanmen miso chukasoba sokisoba]
+soup = %w[Niboshi Tonkotsu Shoyu Shio Tantanmen Miso Chukasoba Sokisoba]
 20.times do
   ramen_review = RamenReview.create!(
     soup: soup.sample,
