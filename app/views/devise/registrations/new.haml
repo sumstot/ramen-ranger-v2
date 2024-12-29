@@ -1,19 +1,19 @@
 .devise__form-container.d-flex.justify-content-center.align-items-center
   .container.p-3.w-50.border.rounded.shadow-sm
-    %h2.mb-3 Sign Up
+    %h2.mb-12 Sign Up
     = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
       = f.error_notification
-      .mb-3
+      .mb-12
         = f.label :email, class: 'form-label'
         = f.email_field :email, required: true, autofocus: true, autocomplete: 'email', class: 'form-control'
-      .mb-3
+      .mb-12
         = f.label :username, class: 'form-label'
         = f.text_field :username, required: true, autofocus: true, autocomplete: 'username', class: 'form-control'
-      .mb-3
+      .mb-12
         = f.label :password, class: 'form-label'
         = f.password_field :password, required: true, autofocus: true, autcomplete: 'new-password', hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), class: 'form-control'
-      .mb-3
+      .mb-12
         = f.label :password_confirmation, class: 'form-label'
         = f.password_field :password_confirmation, required: true, autofocus: true, autocomplete: 'new-password', class: 'form-control'
-      .mb-3.d-flex.align-items-center.justify-content-center
+      .mb-12.d-flex.align-items-center.justify-content-center
         = f.submit 'Sign Up 🍜', class: 'btn btn-lg btn-primary rounded-pill'

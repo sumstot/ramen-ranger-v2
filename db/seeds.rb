@@ -32,13 +32,13 @@ address_index = 0
 names_index = 0
 
 names = ['Zen Laboratory', 'Buta no Hoshi', 'Kobe Gyu Ramen Yazawa', 'Kamigata Rainbow', 'Tonkotsu Mazesoba Kozou+', 'Menya Teru Nakatsu', 'Strike Ken', 'Menya New Classic', 'SPICExRAMEN SUSUSU', 'Moeyo Mensuke' ]
-jpn_names = ['(善ラボラトリー)', ' (ぶたのほし)', '(神戸牛らーめん八坐)', '(上方レインボー)', '(豚骨まぜそばKOZOU＋)', '(麺や輝中津店)', '(ストライク軒)', '(メンヤニュークラシック)', '(SPICExRAMENススス)',  '(燃えよ麺助)' ]
+jpn_names = ['善ラボラトリー', 'ぶたのほし', '神戸牛らーめん八坐', '上方レインボー', '豚骨まぜそばKOZOU＋', '麺や輝中津店', 'ストライク軒', 'メンヤニュークラシック', 'SPICExRAMENススス',  '燃えよ麺助' ]
 days = (1..7).to_a
 10.times do
   restaurant = Restaurant.create!(
     name: names[names_index],
     jpn_name: jpn_names[names_index],
-    year_opened: Date.new(rand(1970..2022))
+    date_opened: Date.new(rand(1970..2022))
   )
   restaurant.address = addresses[address_index]
   restaurant.prefecture = %w[Osaka Wakayama Kyoto Hyogo Tokyo].sample
