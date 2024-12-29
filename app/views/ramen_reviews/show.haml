@@ -1,0 +1,6 @@
+.swiper{ data: { controller: 'swiper', swiper_target: 'swiper' } }
+    .swiper-wrapper
+      - ramen_review.review_images.each do |review_image|
+        .swiper-slide
+          = image_tag(review_image.image)
+    .swiper-pagination{ data: { swiper_target: 'pagination' } }
