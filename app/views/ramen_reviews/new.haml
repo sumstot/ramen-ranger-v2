@@ -9,7 +9,7 @@
     = render partial: 'restaurant_search_results', locals: { restaurants: @restaurants }
   = link_to 'Or create new restaurant', new_restaurant_path
   = simple_form_for @ramen_review, data: { turbo: false } do |f|
-    = f.hidden_field :restaurant_id, id: 'selected-restaurant-id'
+    = f.hidden_field :restaurant_id, data: { 'ramen-reviews--form-target': 'restaurantId' }
     = f.label 'Upload images'
     .dropzone.dropzone-default.dz-clickable.mb-4{ data: {
       controller: 'dropzone',

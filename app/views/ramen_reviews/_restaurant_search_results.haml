@@ -6,7 +6,9 @@
         - @restaurants.each do |restaurant|
           = link_to '#',
             class: 'text-decoration-none',
-            data: { restaurant_id: restaurant.id } do
+            data: { restaurant_id: restaurant.id,
+            restaurant_name: restaurant.name,
+            action: 'click->ramen-reviews--form#selectRestaurant' } do
             .restaurant-option.p-2.border.rounded.mb-2
               .restaurant-name= restaurant.name
               .restaurant-name-jp= restaurant.jpn_name
