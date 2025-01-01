@@ -1,13 +1,14 @@
 .container.mt-4{ data: { controller: 'ramen-reviews--form'}}
   .row.mb-4
     %h5 Select Restaurant
-    = search_form_for @q, url: new_ramen_review_url, method: :get, data: { turbo_frame: 'restaurant-search-results' } do |sff|
+    = search_form_for @q, url: new_ramen_review_url, method: :get, data: { turbo_frame: 'restaurant-search-results', 'ramen-reviews--form-target': 'searchForm' } do |sff|
       = sff.search_field :name_or_jpn_name_or_station_or_city_or_prefecture_cont,
         placeholder: 'Search for restaurant by name or location',
         class: 'form-control',
         oninput: 'this.form.requestSubmit()'
-    = render partial: 'restaurant_search_results', locals: { restaurants: @restaurants }
-  = link_to 'Or create new restaurant', new_restaurant_path
+      = render partial: 'restaurant_search_results', locals: { restaurants: @restaurants }
+    .mt-2{ data: { 'ramen-reviews--form-target': 'selectedRestaurantContainer' } }
+    = link_to 'Add Restaurant', new_restaurant_path
   = simple_form_for @ramen_review, data: { turbo: false } do |f|
     = f.hidden_field :restaurant_id, data: { 'ramen-reviews--form-target': 'restaurantId' }
     = f.label 'Upload images'
