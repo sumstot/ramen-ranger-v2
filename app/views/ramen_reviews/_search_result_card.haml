@@ -1,0 +1,12 @@
+.restaurant-item{ role: 'button',
+  data: {
+    restaurant_id: restaurant.id,
+    restaurant_name: restaurant.name,
+    action: 'click->ramen-reviews--form#selectRestaurant'
+  }
+}
+  .restaurant-option.p-2.border.rounded.mb-2
+    .restaurant-name= restaurant.name
+    .restaurant-name-jp= restaurant.jpn_name
+    .restaurant-details.text-muted
+      = [restaurant.station, restaurant.prefecture].compact.join(' • ')
