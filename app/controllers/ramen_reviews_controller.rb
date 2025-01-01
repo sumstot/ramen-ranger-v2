@@ -8,13 +8,13 @@ class RamenReviewsController < ApplicationController
   end
 
   def new
-    @q = Restaurant.ransack(params[:q])
-    @restaurants = @q.result.distinct(true).limit(5)
     @ramen_review = RamenReview.new
     @review_image = @ramen_review.review_images.build
-    if turbo_frame_request?
-      render partial: 'restaurant_search_results', restaurants: @restaurants
-    end
+    @q = Restaurant.ransack(params[:q])
+    @restaurants = @q.result.distinct(true).limit(5)
+    return unless turbo_frame_request?
+
+    render partial: 'restaurant_search_results', restaurants: @restaurants
   end
 
   def create
