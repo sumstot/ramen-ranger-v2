@@ -51,7 +51,7 @@ class RestaurantsController < ApplicationController
   def return_url(restaurant)
     if session[:back_path]&.include?('ramen_reviews/new')
       session.delete(:back_path)
-      new_ramen_review_path(selected_restaurant_name: restaurant.name)
+      new_ramen_review_path(selected_restaurant_id: restaurant.id)
     else
       restaurant_path(restaurant)
     end

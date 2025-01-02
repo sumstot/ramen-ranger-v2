@@ -4,18 +4,6 @@
     - if params.dig(:q, :name_or_jpn_name_or_station_or_city_or_prefecture_cont).present?
       - if @restaurants.present?
         - @restaurants.each do |restaurant|
-          .restaurant-item{
-            role: 'button',
-            data: {
-              restaurant_id: restaurant.id,
-              restaurant_name: restaurant.name,
-              action: 'click->ramen-reviews--form#selectRestaurant'
-            }
-          }
-            .restaurant-option.p-2.border.rounded.mb-2
-              .restaurant-name= restaurant.name
-              .restaurant-name-jp= restaurant.jpn_name
-              .restaurant-details.text-muted
-                = [restaurant.station, restaurant.prefecture].compact.join(' • ')
+          = render 'search_result_card', restaurant: restaurant
       - else
         .text-muted No restaurants found
