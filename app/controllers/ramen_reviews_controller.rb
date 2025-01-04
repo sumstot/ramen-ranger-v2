@@ -33,20 +33,6 @@ class RamenReviewsController < ApplicationController
     end
   end
 
-  def upload_image
-    @review_image = @review.review_images.build(image: params[:image])
-    # if @review_image.save
-    #   render turbo_stream: [
-    #     turbo_stream.append('turbo-uploaded-images',
-    #                         partial: 'reviews/review_image_preview',
-    #                         locals: { review_image: @review_image }),
-    #     turbo_stream.update('upload-notice', 'Image uploaded successfully!')
-    #   ]
-    # else
-    #   render turbo_stream: turbo_stream.update('upload-notice', 'Failed to upload image')
-    # end
-  end
-
   private
 
   def ramen_review_params

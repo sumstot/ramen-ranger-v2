@@ -96,29 +96,42 @@ class DirectUploadController {
     this.directUpload = createDirectUpload(file, source.url, this)
     this.source = source
     this.file = file
+    this.index = this.source.dropZone.files.indexOf(file)
   }
 
   start() {
     this.file.controller = this
-    this.hiddenInput = this.createHiddenInput()
+    this.createHiddenInputs()
+
     this.directUpload.create((error, attributes) => {
       if (error) {
-        removeElement(this.hiddenInput)
+        this.removeHiddenInputs()
         this.emitDropzoneError(error)
       } else {
-        this.hiddenInput.value = attributes.signed_id
+        this.imageInput.value = attributes.signed_id
         this.emitDropzoneSuccess()
       }
     })
   }
 
   // Private
-  createHiddenInput() {
-    const input = document.createElement('input')
-    input.type = 'hidden'
-    input.name = this.source.inputTarget.name
-    insertAfter(input, this.source.inputTarget)
-    return input
+  createHiddenInputs() {
+    this.imageInput = document.createElement('input')
+    this.imageInput.type = 'hidden'
+    this.imageInput.name = `ramen_review[review_images_attributes][${this.index}][image]`
+
+    this.sortInput = document.createElement('input')
+    this.sortInput.type = 'hidden'
+    this.sortInput.name = `ramen_review[review_images_attributes][${this.index}][sort_order]`
+    this.sortInput.value = this.index
+
+    insertAfter(this.imageInput, this.source.inputTarget)
+    insertAfter(this.sortInput, this.imageInput)
+  }
+
+  removeHiddenInputs() {
+    removeElement(this.imageInput)
+    removeElement(this.sortInput)
   }
 
   directUploadWillStoreFileWithXHR(xhr) {
@@ -134,7 +147,6 @@ class DirectUploadController {
   }
 
   uploadRequestDidProgress(event) {
-    const element = this.source.element
     const progress = (event.loaded / event.total) * 100
     findElement(
       this.file.previewTemplate,
