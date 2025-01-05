@@ -9,7 +9,11 @@ export default class extends Controller {
   selectRestaurant(e) {
     this.restaurantIdTarget.value = e.currentTarget.dataset.restaurantId
     this.selectedRestaurantContainerTarget.innerHTML = e.currentTarget.innerHTML
-
+    const restaurantOption =
+      this.selectedRestaurantContainerTarget.querySelector('.restaurant-option')
+    if (restaurantOption) {
+      restaurantOption.classList.add('is-selected')
+    }
     this.clearSearch()
   }
 

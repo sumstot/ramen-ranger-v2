@@ -1,8 +1,49 @@
-.ramen-reviews__title {
-  margin: 16px auto;
+.ramen-reviews__header-container {
+  width: 100%;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 32px 0;
+}
+
+.ramen-reviews__header-content {
   text-align: center;
-  font-size: 24px;
-  font-weight: 600;
+}
+
+.ramen-reviews__title {
+  font-size: 30px;
+  font-weight: 700;
+  background: linear-gradient(to right, #f97316, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.ramen-reviews__subtitle {
+  color: #4b5563;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.ramen-reviews__decorative-bars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ramen-reviews__bar {
+  height: 4px;
+  border-radius: 9999px;
+  background-color: #fdba74;
+  &.is-small {
+    width: 64px;
+  }
+  &.is-large {
+    width: 96px;
+    background-color: #fb923c;
+  }
 }
 
 .ramen-reviews__container {

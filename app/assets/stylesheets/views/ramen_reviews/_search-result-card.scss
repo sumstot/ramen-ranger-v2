@@ -1,0 +1,41 @@
+.restaurant-option {
+  cursor: pointer;
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.restaurant-option:hover {
+  background-color: #fff9f5;
+  border-color: #fb923c;
+}
+
+.restaurant-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.restaurant-name-jp {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.restaurant-details {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.restaurant-option.is-selected {
+  background-color: #fff9f5;
+  border: 2px solid #fb923c;
+}
+
+.restaurant-option.is-selected .restaurant-name {
+  color: #000000;
+  font-weight: 600;
+}
+
