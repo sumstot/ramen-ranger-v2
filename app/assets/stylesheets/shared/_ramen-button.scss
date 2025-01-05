@@ -1,0 +1,24 @@
+.ramen-button {
+  background-color: $_button-yellow;
+  border: none;
+  border-radius: 25px;
+  color: $_color-white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: inline-block
+}
+
+.ramen-button:hover {
+  background-color: $_button-hover-yellow;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ramen-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -24,7 +24,6 @@ class RamenReviewsController < ApplicationController
   end
 
   def create
-    binding.pry
     @ramen_review = RamenReview.new(ramen_review_params)
     if @ramen_review.save
       redirect_to edit_ramen_review_url(@ramen_review), notice: 'sucessfully created'

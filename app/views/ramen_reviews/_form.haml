@@ -21,6 +21,9 @@
       = f.simple_fields_for :review_images do |review_image_form|
         = review_image_form.file_field :image, direct_upload: true, multiple: true, data: { dropzone_target: 'input' }
     = f.rich_text_area :content
-    = f.input :soup, as: :select, collection: RamenReview::SOUP_TYPES, input_html: { class: 'form-select' }
-    = f.input :score, as: :select, collection: RamenReview::POSSIBLE_SCORES, selected: 3.0, include_blank: false, input_html: { class: 'form-select' }
-    = f.submit
+    .mt-2
+      = f.input :soup, as: :select, collection: RamenReview::SOUP_TYPES, input_html: { class: 'form-select' }
+    .mt-2
+      = f.input :score, as: :select, collection: RamenReview::POSSIBLE_SCORES, selected: 3.0, include_blank: false, input_html: { class: 'form-select' }
+    .ramen-reviews__button-container
+      = f.submit submit_button_text, class: 'ramen-button'
