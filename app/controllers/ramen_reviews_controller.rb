@@ -18,6 +18,7 @@ class RamenReviewsController < ApplicationController
   end
 
   def show; end
+
   def edit
     @q = Restaurant.ransack(params[:q])
     @restaurants = @q.result.distinct(true).limit(5)
