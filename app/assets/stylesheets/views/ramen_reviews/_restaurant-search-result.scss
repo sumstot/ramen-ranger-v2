@@ -1,0 +1,37 @@
+.restaurant-search-result__info {
+  cursor: pointer;
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+  &:hover {
+    background-color: #fff9f5;
+    border: 2px solid #fb923c;
+  }
+  &.is-selected {
+    background-color: #fff9f5;
+    border: 2px solid #fb923c;
+    .restaurant-search-result__name {
+      color: #000000;
+      font-weight: 600;
+    }
+  }
+}
+
+.restaurant-search-result__name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.restaurant-search-result__name-jp {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.restaurant-search-result__details {
+  font-size: 14px;
+  color: #6b7280;
+}

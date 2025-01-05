@@ -8,10 +8,18 @@ export default class extends Controller {
     markers: Array,
   }
 
-  connect() {
-    window.addEventListener('initMap', this.initializeMap.bind(this))
+ connect() {
     if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
       this.initializeMap()
+    } else {
+      window.addEventListener('initMap', this.initializeMap.bind(this))
+
+      setTimeout(() => {
+        if (!this.map) {
+          console.warn('Map not initialized, retrying...')
+          this.initializeMap()
+        }
+      }, 2000)
     }
   }
 

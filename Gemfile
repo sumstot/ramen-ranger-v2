@@ -38,6 +38,7 @@ gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'geocoder'
 gem 'rubocop-rails', require: false
+gem 'acts_as_list'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

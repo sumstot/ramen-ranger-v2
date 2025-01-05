@@ -1,0 +1,8 @@
+- if review_image.persisted?
+  = turbo_frame_tag dom_id(review_image) do
+    .uploaded-image
+      = image_tag review_image.image, class: "preview-image"
+      = button_to "Remove",
+                  destroy_image_review_path(@review, image_id: review_image.id),
+                  method: :delete,
+                  class: "remove-image"

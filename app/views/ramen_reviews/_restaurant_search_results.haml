@@ -1,0 +1,8 @@
+= turbo_frame_tag 'restaurant-search-results', data: { 'ramen-reviews--form-target': 'searchResults'} do
+  .restaurant-results.mt-2
+    - if params.dig(:q, :name_or_jpn_name_or_station_or_city_or_prefecture_cont).present?
+      - if @restaurants.present?
+        - @restaurants.each do |restaurant|
+          = render 'restaurant_search_result', restaurant: restaurant
+      - else
+        .text-muted No restaurants found

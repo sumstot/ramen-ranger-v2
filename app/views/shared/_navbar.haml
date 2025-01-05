@@ -23,3 +23,8 @@
         = link_to hall_of_fame_path, class: 'd-flex align-items-center' do
           %box-icon{ name: 'star', type: 'solid', color: '#e74d30' }
           %p.navbar__nav-link-text Hall of Fame
+      -# - if current_user.admin?
+      .navbar__nav-link
+        = link_to new_ramen_review_path, class: 'd-flex align-items-center' do
+          %box-icon{ name: 'detail' }
+          %p.navbar__nav-link-text New Ramen Review
