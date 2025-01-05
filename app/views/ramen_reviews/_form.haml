@@ -8,7 +8,9 @@
         oninput: 'this.form.requestSubmit()'
       = render 'restaurant_search_results', restaurants: @restaurants
     .mt-2{ data: { 'ramen-reviews--form-target': 'selectedRestaurantContainer' } }
-      = render 'search_result_card', restaurant: @selected_restaurant if @selected_restaurant.present?
+      - selected_restaurant = @selected_restaurant || @ramen_review.restaurant
+      - if selected_restaurant
+        = render 'restaurant_search_result', restaurant: selected_restaurant
     = link_to 'Add Restaurant', new_restaurant_path
   = simple_form_for @ramen_review, data: { turbo: false } do |f|
     = f.hidden_field :restaurant_id, value: @selected_restaurant&.id, data: { 'ramen-reviews--form-target': 'restaurantId' }
