@@ -16,5 +16,8 @@ application.register("navbar", NavbarController)
 import RamenReviews__FormController from "./ramen_reviews/form_controller"
 application.register("ramen-reviews--form", RamenReviews__FormController)
 
+import SortableController from "./sortable_controller"
+application.register("sortable", SortableController)
+
 import SwiperController from "./swiper_controller"
 application.register("swiper", SwiperController)

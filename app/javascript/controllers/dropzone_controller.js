@@ -31,6 +31,7 @@ export default class extends Controller {
 
   bindEvents() {
     this.dropZone.on('addedfile', (file) => {
+      file.previewElement.setAttribute('data-sortable-target', 'previewImage')
       setTimeout(() => {
         file.accepted && createDirectUploadController(this, file).start()
       }, 500)
@@ -120,18 +121,18 @@ class DirectUploadController {
     this.imageInput.type = 'hidden'
     this.imageInput.name = `ramen_review[review_images_attributes][${this.index}][image]`
 
-    this.sortInput = document.createElement('input')
-    this.sortInput.type = 'hidden'
-    this.sortInput.name = `ramen_review[review_images_attributes][${this.index}][sort_order]`
-    this.sortInput.value = this.index
+    this.positionInput = document.createElement('input')
+    this.positionInput.type = 'hidden'
+    this.positionInput.name = `ramen_review[review_images_attributes][${this.index}][position]`
+    this.positionInput.value = this.index
 
     insertAfter(this.imageInput, this.source.inputTarget)
-    insertAfter(this.sortInput, this.imageInput)
+    insertAfter(this.positionInput, this.imageInput)
   }
 
   removeHiddenInputs() {
     removeElement(this.imageInput)
-    removeElement(this.sortInput)
+    removeElement(this.positionInput)
   }
 
   directUploadWillStoreFileWithXHR(xhr) {
