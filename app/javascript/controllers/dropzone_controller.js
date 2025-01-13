@@ -9,14 +9,14 @@ import {
 } from '../helpers/dropzone'
 Dropzone.autoDiscover = false
 export default class extends Controller {
-  static targets = ['input']
+  static targets = ['input', 'previewImage', 'message', 'existingImages']
 
   connect() {
-    console.log('dropzone controller connected')
-
     this.dropZone = createDropZone(this)
     this.hideFileInput()
     this.bindEvents()
+    this.addExistingFiles()
+    console.log(this.existingImagesTarget)
   }
 
   inputTargetConnected() {
@@ -29,6 +29,47 @@ export default class extends Controller {
     this.inputTarget.style.display = 'none'
   }
 
+  addExistingFiles() {
+    const existingImages = JSON.parse(this.existingImagesTarget.value)
+    existingImages.forEach((imageData, index) => {
+      const mockFile = {
+        name: imageData.filename,
+        size: imageData.size,
+        accepted: true,
+        status: Dropzone.SUCCESS,
+      }
+
+      this.dropZone.emit('addedfile', mockFile)
+      this.dropZone.emit('thumbnail', mockFile, imageData.url)
+      this.dropZone.emit('complete', mockFile)
+      this.dropZone.emit('success', mockFile) // Emit success event for mock files
+
+      // Create hidden inputs for existing files
+      // this.createHiddenInputs(mockFile, index)
+    })
+    // this.previewImageTargets.forEach((preview, index) => {
+    //   const image = preview.querySelector('.dz-image img')
+    //   const filename = preview.querySelector('.dz-filename span')
+
+    //   if (image && filename) {
+    //     const mockFile = {
+    //       name: filename.textContent,
+    //       size: 0,
+    //       accepted: true,
+    //       status: Dropzone.SUCCESS,
+    //     }
+
+    //     this.dropZone.emit('addedfile', mockFile)
+    //     this.dropZone.emit('thumbnail', mockFile, image.src)
+    //     // this.dropzone.emit('success', mockFile)
+    //     this.dropZone.emit('complete', mockFile)
+
+    //     // this.createHiddenInputs(mockFile, index)
+    //     // preview.remove()
+    //   }
+    // })
+  }
+
   bindEvents() {
     this.dropZone.on('addedfile', (file) => {
       file.previewElement.setAttribute('data-sortable-target', 'previewImage')
@@ -38,6 +79,7 @@ export default class extends Controller {
     })
 
     this.dropZone.on('removedfile', (file) => {
+      console.log('inside removedfile')
       file.controller && removeElement(file.controller.hiddenInput)
     })
 
@@ -58,6 +100,12 @@ export default class extends Controller {
         Turbo.renderStreamMessage(response.turbo_stream)
       }
     })
+  }
+
+  messageTargetConnected() {
+    if (this.previewImageTargets.length > 0) {
+      this.messageTarget.style.display = 'none'
+    }
   }
 
   get headers() {
@@ -191,5 +239,11 @@ function createDropZone(controller) {
     acceptedFiles: controller.acceptedFiles,
     addRemoveLinks: controller.addRemoveLinks,
     autoQueue: false,
+    resizeWidth: 416,
+    resizeHeight: 520,
+    thumbnailWidth: 120,
+    thumbnailHeight: 150,
+    thumbnailMethod: 'contain',
+    resizeQuality: 1,
   })
 }
