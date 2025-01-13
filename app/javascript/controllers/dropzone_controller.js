@@ -42,32 +42,8 @@ export default class extends Controller {
       this.dropZone.emit('addedfile', mockFile)
       this.dropZone.emit('thumbnail', mockFile, imageData.url)
       this.dropZone.emit('complete', mockFile)
-      this.dropZone.emit('success', mockFile) // Emit success event for mock files
-
-      // Create hidden inputs for existing files
-      // this.createHiddenInputs(mockFile, index)
+      this.dropZone.emit('success', mockFile)
     })
-    // this.previewImageTargets.forEach((preview, index) => {
-    //   const image = preview.querySelector('.dz-image img')
-    //   const filename = preview.querySelector('.dz-filename span')
-
-    //   if (image && filename) {
-    //     const mockFile = {
-    //       name: filename.textContent,
-    //       size: 0,
-    //       accepted: true,
-    //       status: Dropzone.SUCCESS,
-    //     }
-
-    //     this.dropZone.emit('addedfile', mockFile)
-    //     this.dropZone.emit('thumbnail', mockFile, image.src)
-    //     // this.dropzone.emit('success', mockFile)
-    //     this.dropZone.emit('complete', mockFile)
-
-    //     // this.createHiddenInputs(mockFile, index)
-    //     // preview.remove()
-    //   }
-    // })
   }
 
   bindEvents() {
