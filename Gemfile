@@ -58,6 +58,7 @@ group :development do
   gem 'ruby-lsp-rails'
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'hotwire-spark'
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem 'spring'
