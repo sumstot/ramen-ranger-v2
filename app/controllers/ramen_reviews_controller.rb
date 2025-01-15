@@ -22,12 +22,10 @@ class RamenReviewsController < ApplicationController
   def edit
     @q = Restaurant.ransack(params[:q])
     @restaurants = @q.result.distinct(true).limit(5)
-    @existing_images = @ramen_review.review_images.includes(image_attachment: :blob).map do |review_image|
+    @existing_images = @ramen_review.review_images.order(:position).includes(image_attachment: :blob).map do |review_image|
       if review_image.image.attached?
         {
-          url: url_for(review_image.image),
-          filename: review_image.image.filename,
-          size: review_image.image.byte_size
+          url: url_for(review_image.image)
         }
       end
     end.compact

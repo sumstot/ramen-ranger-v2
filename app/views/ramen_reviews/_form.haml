@@ -24,15 +24,6 @@
         = review_image_form.file_field :image, direct_upload: true, multiple: true, data: { dropzone_target: 'input', sortable_target: 'input' }
       - if @existing_images.present?
         = f.hidden_field :existing_images, value: @existing_images.to_json, data: { dropzone_target: 'existingImages' }
-      -# - if @ramen_review.review_images.present?
-      -#   - @ramen_review.review_images.each do |review_image|
-      -#     - if review_image.image.present?
-      -#       .dz-preview.dz-processing.dz-image-preview.dz-success{ data: { dropzone_target: 'previewImage' } }
-      -#         .dz-image
-      -#           = image_tag review_image.image
-      -#         .dz-details
-      -#           .dz-filename
-      -#             %span= review_image.image.filename
     = f.rich_text_area :content
     .mt-2
       = f.input :soup, as: :select, collection: RamenReview::SOUP_TYPES, input_html: { class: 'form-select' }

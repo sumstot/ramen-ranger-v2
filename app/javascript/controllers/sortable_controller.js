@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import Sortable from 'sortablejs'
 
 export default class extends Controller {
-  static targets = ['previewImage']
+  static targets = ['previewImage', 'positionInput']
 
   connect() {
     this.initSortable()
@@ -15,14 +15,18 @@ export default class extends Controller {
     })
   }
 
-  updatePositions() {
-    this.previewImageTargets.forEach((previewImage, index) => {
-      const positionInput = previewImage.querySelector(
-        'input[name*="[position]"]'
-      )
-      if (positionInput) {
-        positionInput.value = index
-      }
-    })
+   updatePositions(event) {
+     const previews = Array.from(
+       this.element.querySelectorAll('[data-dropzone-preview]')
+     )
+
+     previews.forEach((preview, newPosition) => {
+       // Find the matching position input using targets
+       const positionInput =
+         this.positionInputTargets[parseInt(preview.dataset.imageIndex)]
+       if (positionInput) {
+         positionInput.value = newPosition
+       }
+     })
   }
 }

@@ -33,8 +33,6 @@ export default class extends Controller {
     const existingImages = JSON.parse(this.existingImagesTarget.value)
     existingImages.forEach((imageData, index) => {
       const mockFile = {
-        name: imageData.filename,
-        size: imageData.size,
         accepted: true,
         status: Dropzone.SUCCESS,
       }
@@ -149,6 +147,9 @@ class DirectUploadController {
     this.positionInput.type = 'hidden'
     this.positionInput.name = `ramen_review[review_images_attributes][${this.index}][position]`
     this.positionInput.value = this.index
+    this.positionInput.dataset.positionInput = `${this.index}`
+
+    this.file.previewElement.dataset.positionIndex = `${this.index}`
 
     insertAfter(this.imageInput, this.source.inputTarget)
     insertAfter(this.positionInput, this.imageInput)
