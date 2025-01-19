@@ -15,12 +15,9 @@ export default class extends Controller {
     this.dropZone = createDropZone(this)
     this.hideFileInput()
     this.bindEvents()
+    // if (this.hasExisitingImagesTarget) {
     this.addExistingFiles()
-    console.log(this.existingImagesTarget)
-  }
-
-  inputTargetConnected() {
-    console.log(this.inputTarget)
+    // }
   }
 
   // Private
@@ -140,24 +137,17 @@ class DirectUploadController {
   // Private
   createHiddenInputs() {
     this.imageInput = document.createElement('input')
+    this.imageInput.setAttribute('data-sortable-target', 'hiddenInput')
     this.imageInput.type = 'hidden'
     this.imageInput.name = `ramen_review[review_images_attributes][${this.index}][image]`
-
-    this.positionInput = document.createElement('input')
-    this.positionInput.type = 'hidden'
-    this.positionInput.name = `ramen_review[review_images_attributes][${this.index}][position]`
-    this.positionInput.value = this.index
-    this.positionInput.dataset.positionInput = `${this.index}`
-
-    this.file.previewElement.dataset.positionIndex = `${this.index}`
+    this.imageInput.dataset.positionIndex = this.index
+    this.file.previewElement.dataset.positionIndex = this.index
 
     insertAfter(this.imageInput, this.source.inputTarget)
-    insertAfter(this.positionInput, this.imageInput)
   }
 
   removeHiddenInputs() {
     removeElement(this.imageInput)
-    removeElement(this.positionInput)
   }
 
   directUploadWillStoreFileWithXHR(xhr) {

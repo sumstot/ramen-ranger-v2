@@ -25,7 +25,8 @@ class RamenReviewsController < ApplicationController
     @existing_images = @ramen_review.review_images.order(:position).includes(image_attachment: :blob).map do |review_image|
       if review_image.image.attached?
         {
-          url: url_for(review_image.image)
+          url: url_for(review_image.image),
+          position: review_image.position
         }
       end
     end.compact

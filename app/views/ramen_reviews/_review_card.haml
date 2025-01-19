@@ -1,6 +1,7 @@
 .review-card__container
   = link_to ramen_review_path(ramen_review) do
-    = image_tag(ramen_review.review_images.first.image)
+    - if ramen_review.review_images.first&.image.present?
+      = image_tag(ramen_review.review_images.first.image)
     .review-card__content
       .d-flex.justify-content-between.align-items-start.mb-12
         .name-container
