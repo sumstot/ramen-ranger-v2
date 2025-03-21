@@ -7,7 +7,7 @@ class RamenReview < ApplicationRecord
 
   SOUP_TYPES = %w[Shoyu Shio Tonkotsu Niboshi Tantanmen Iekei Mazesoba Tsukemen Reimen Jiro].freeze
   POSSIBLE_SCORES = (0.0..5.0).step(0.1).map { |n| n.round(1) }.freeze
-  validates_numericality_of :score, greater_than_or_equal_to: 0, less_than_or_equal_to: 5, on: create
+  validates_numericality_of :score, greater_than_or_equal_to: 0, less_than_or_equal_to: 5, on: :create
 
   private
 

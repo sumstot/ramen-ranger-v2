@@ -13,17 +13,19 @@
         = render 'restaurant_search_result', restaurant: selected_restaurant
     = link_to 'Add Restaurant', new_restaurant_path
   = simple_form_for @ramen_review, data: { turbo: false } do |f|
-    = f.hidden_field :restaurant_id, value: @selected_restaurant&.id, data: { 'ramen-reviews--form-target': 'restaurantId' }
+    = f.hidden_field :restaurant_id, value: (@selected_restaurant || @ramen_review&.restaurant)&.id, data: { 'ramen-reviews--form-target': 'restaurantId' }
     = f.label 'Upload images'
-    .dropzone.dropzone-default.dz-clickable.mb-4{ data: {
-      controller: 'dropzone sortable',
-      'dropzone-max-file-size': 10,
-      'dropzone-max-files': 10 } }
+    .dropzone.dropzone-default.dz-clickable.mb-4{
+      data: {
+        controller: 'dropzone sortable',
+        'dropzone-max-file-size': 10,
+        'dropzone-max-files': 10,
+        'dropzone-existing-images-value': (@existing_images || []).to_json
+      }
+    }
       .dz-message{ data: { dropzone_target: 'message' } } Drag and drop files here or click to upload
-      = f.simple_fields_for @ramen_review.review_images.build do |review_image_form|
-        = review_image_form.file_field :image, direct_upload: true, multiple: true, data: { dropzone_target: 'input', sortable_target: 'input' }
-      - if @existing_images.present?
-        = f.hidden_field :existing_images, value: @existing_images.to_json, data: { dropzone_target: 'existingImages' }
+      = f.fields_for :review_images, @ramen_review.review_images.build do |review_image_form|
+        = review_image_form.file_field :image, direct_upload: true, data: { dropzone_target: 'input', sortable_target: 'input' }
     = f.rich_text_area :content
     .mt-2
       = f.input :soup, as: :select, collection: RamenReview::SOUP_TYPES, input_html: { class: 'form-select' }
