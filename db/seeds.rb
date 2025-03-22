@@ -35,7 +35,7 @@ names = ['Zen Laboratory', 'Buta no Hoshi', 'Kobe Gyu Ramen Yazawa', 'Kamigata R
 jpn_names = ['善ラボラトリー', 'ぶたのほし', '神戸牛らーめん八坐', '上方レインボー', '豚骨まぜそばKOZOU＋', '麺や輝中津店', 'ストライク軒', 'メンヤニュークラシック', 'SPICExRAMENススス',  '燃えよ麺助' ]
 days = (1..7).to_a
 10.times do
-  restaurant = Restaurant.create!(
+  restaurant = Restaurant.build(
     name: names[names_index],
     jpn_name: jpn_names[names_index],
     date_opened: Date.new(rand(1970..2022))
