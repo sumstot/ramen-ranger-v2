@@ -16,11 +16,31 @@ export default class extends Controller {
   }
 
   updatePositions(event) {
-    this.previewImageTargets.forEach((previewImage, index) => {
-      const hiddenInput = this.hiddenInputTargets.find(input => input.dataset.positionIndex === previewImage.dataset.positionIndex)
+    const inputsByIndex = new Map()
 
-      hiddenInput.dataset.positionIndex = index
-      previewImage.dataset.positionIndex = index
+    this.hiddenInputTargets.forEach(input => {
+      const index = input.dataset.positionIndex
+      if (!inputsByIndex.has(index)) {
+        inputsByIndex.set(index, [])
+      }
+      inputsByIndex.get(index).push(input)
+    })
+
+    this.previewImageTargets.forEach((previewImage, newIndex) => {
+      const currentIndex = previewImage.dataset.positionIndex
+      const relatedInputs = inputsByIndex.get(currentIndex) || []
+
+      relatedInputs.forEach(input => {
+        input.name = input.name.replace(/\[\d+\]/, `[${newIndex}]`)
+
+        if (input.name.includes('[position]')) {
+          input.value = newIndex
+        }
+
+        input.dataset.positionIndex = newIndex
+      })
+
+      previewImage.dataset.positionIndex = newIndex
     })
   }
 }

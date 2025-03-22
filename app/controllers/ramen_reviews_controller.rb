@@ -42,7 +42,6 @@ class RamenReviewsController < ApplicationController
   end
 
   def update
-    binding.pry
     if @ramen_review.update(ramen_review_params)
       redirect_to ramen_review_url(@ramen_review)
     else
@@ -68,7 +67,6 @@ class RamenReviewsController < ApplicationController
       :price,
       :restaurant_id,
       :content,
-      # :existing_images,
       review_images_attributes: [:id, :image, :position, :_destroy]
     )
   end

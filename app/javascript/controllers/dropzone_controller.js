@@ -9,15 +9,14 @@ import {
 } from '../helpers/dropzone'
 Dropzone.autoDiscover = false
 export default class extends Controller {
-  static targets = ['input', 'previewImage', 'message', 'existingImages']
+  static values = { existingImages: Array }
+  static targets = ['input', 'previewImage', 'message']
 
   connect() {
     this.dropZone = createDropZone(this)
     this.hideFileInput()
     this.bindEvents()
-    // if (this.hasExisitingImagesTarget) {
     this.addExistingFiles()
-    // }
   }
 
   // Private
@@ -27,17 +26,46 @@ export default class extends Controller {
   }
 
   addExistingFiles() {
-    const existingImages = JSON.parse(this.existingImagesTarget.value)
-    existingImages.forEach((imageData, index) => {
-      const mockFile = {
-        accepted: true,
-        status: Dropzone.SUCCESS,
-      }
+    if (!this.existingImagesValue) return
 
-      this.dropZone.emit('addedfile', mockFile)
-      this.dropZone.emit('thumbnail', mockFile, imageData.url)
-      this.dropZone.emit('complete', mockFile)
-      this.dropZone.emit('success', mockFile)
+    this.existingImagesValue.forEach((imageData, index) => {
+      fetch(imageData.url)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const file = new File(
+            [blob],
+            imageData.filename || `image-${index}.jpg`,
+            { type: blob.type }
+          )
+          file.status = Dropzone.SUCCESS
+          file.isExisting = true
+          file.imageId = imageData.id
+          this.dropZone.addFile(file)
+
+          // Create hidden inputs for existing images
+          const idInput = document.createElement('input')
+          idInput.type = 'hidden'
+          idInput.setAttribute('data-sortable-target', 'hiddenInput')
+          idInput.name = `ramen_review[review_images_attributes][${index}][id]`
+          idInput.value = imageData.id
+          idInput.dataset.positionIndex = index
+          file.previewElement.dataset.positionIndex = index
+          insertAfter(idInput, this.inputTarget)
+
+          const positionInput = document.createElement('input')
+          positionInput.type = 'hidden'
+          positionInput.setAttribute('data-sortable-target', 'hiddenInput')
+          positionInput.name = `ramen_review[review_images_attributes][${index}][position]`
+          positionInput.value = index
+          positionInput.dataset.positionIndex = index
+          insertAfter(positionInput, idInput)
+
+          file.hiddenInputs = [idInput, positionInput]
+
+          file.status = Dropzone.SUCCESS
+          this.dropZone.emit('complete', file)
+          this.dropZone.emit('success', file)
+        })
     })
   }
 
@@ -50,8 +78,23 @@ export default class extends Controller {
     })
 
     this.dropZone.on('removedfile', (file) => {
-      console.log('inside removedfile')
-      file.controller && removeElement(file.controller.hiddenInput)
+      if (file.isExisting && file.imageId) {
+        const destroyInput = document.createElement('input')
+        destroyInput.type = 'hidden'
+        destroyInput.name = `ramen_review[review_images_attributes][${file.previewElement.dataset.positionIndex}][_destroy]`
+        destroyInput.value = '1'
+        insertAfter(destroyInput, this.inputTarget)
+
+        if (file.hiddenInputs) {
+          if (file.hiddenInputs.length > 1) {
+            removeElement(file.hiddenInputs[1])
+          }
+        }
+      } else {
+        if (file.hiddenInputs) {
+          file.hiddenInputs.forEach((input) => removeElement(input))
+        }
+      }
     })
 
     this.dropZone.on('canceled', (file) => {
@@ -143,11 +186,23 @@ class DirectUploadController {
     this.imageInput.dataset.positionIndex = this.index
     this.file.previewElement.dataset.positionIndex = this.index
 
+    this.positionInput = document.createElement('input')
+    this.positionInput.type = 'hidden'
+    this.positionInput.setAttribute('data-sortable-target', 'hiddenInput')
+    this.positionInput.name = `ramen_review[review_images_attributes][${this.index}][position]`
+    this.positionInput.value = this.index
+    this.positionInput.dataset.positionIndex = this.index
+
     insertAfter(this.imageInput, this.source.inputTarget)
+    insertAfter(this.positionInput, this.imageInput)
+
+    this.file.hiddenInputs = [this.imageInput, this.positionInput]
+    // this.file.controller = this // Store controller reference
   }
 
   removeHiddenInputs() {
     removeElement(this.imageInput)
+    removeElement(this.positionInput)
   }
 
   directUploadWillStoreFileWithXHR(xhr) {
