@@ -20,6 +20,7 @@ class RamenReviewsController < ApplicationController
   def show; end
 
   def edit
+    @ramen_review = RamenReview.includes(review_images: {image_attachment: :blob}).find(params[:id])
     @q = Restaurant.ransack(params[:q])
     @restaurants = @q.result.distinct(true).limit(5)
   end
@@ -36,7 +37,10 @@ class RamenReviewsController < ApplicationController
   private
 
   def ramen_review_params
-    params.require(:ramen_review).permit(:soup, :score, :review, :price, :restaurant_id, :content, review_images_attributes: [:image])
+    params.require(:ramen_review).permit(
+      :soup, :score, :review, :price, :restaurant_id, :content,
+      review_images_attributes: [:id, :blob_signed_id, :position, :_destroy]
+    )
   end
 
   def set_ramen_review

@@ -14,14 +14,33 @@
     = link_to 'Add Restaurant', new_restaurant_path
   = simple_form_for @ramen_review, data: { turbo: false } do |f|
     = f.hidden_field :restaurant_id, value: @selected_restaurant&.id, data: { 'ramen-reviews--form-target': 'restaurantId' }
-    = f.label 'Upload images'
-    .dropzone.dropzone-default.dz-clickable.mb-4{ data: {
-      controller: 'dropzone',
-      'dropzone-max-file-size': 10,
-      'dropzone-max-files': 10 } }
-      .dz-message Drag and drop files here or click to upload
-      = f.simple_fields_for :review_images do |review_image_form|
-        = review_image_form.file_field :image, direct_upload: true, multiple: true, data: { dropzone_target: 'input' }
+
+    %label.form-label Upload images
+    .image-upload-area.mb-4{ data: { controller: 'upload sortable', sortable_target: 'container', upload_target: 'container' } }
+      .upload-button.mb-2
+        %label.btn.btn-outline-primary
+          Drag and drop files here or click to upload
+          = f.file_field :images, multiple: true, direct_upload: true, class: 'd-none', data: { upload_target: 'input', action: 'change->upload#handleFiles' }
+
+      .preview-container{ data: { sortable_options: { animation: 150 }.to_json, action: 'sortablejs:end->sortable#updateOrder' } }
+        - if @ramen_review.persisted? && @ramen_review.review_images.any?
+          - @ramen_review.review_images.order(:position).each do |review_image|
+            .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item' } }
+              - if review_image.image.attached?
+                = image_tag review_image.image
+              .card-body.p-2
+                %button.btn.btn-sm.btn-danger.position-absolute.top-0.end-0.m-1{ type: 'button', data: { action: 'click->upload#removeImage' } } ×
+                = f.hidden_field "review_images_attributes[][id]", value: review_image.id
+                = f.hidden_field "review_images_attributes[][position]", value: review_image.position, data: { sortable_target: 'position' }
+
+      %template{ data: { upload_target: 'template' } }
+        .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item' } }
+          %img.card-img-top
+          .card-body.p-2
+            .progress.mb-2
+              .progress-bar{ style: 'width: 0%' }
+            %button.btn.btn-sm.btn-danger.position-absolute.top-0.end-0.m-1{ type: 'button', data: { action: 'click->upload#removeImage' } } ×
+
     = f.rich_text_area :content
     .mt-2
       = f.input :soup, as: :select, collection: RamenReview::SOUP_TYPES, input_html: { class: 'form-select' }

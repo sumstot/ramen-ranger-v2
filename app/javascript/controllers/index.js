@@ -4,9 +4,6 @@
 
 import { application } from "./application"
 
-import DropzoneController from "./dropzone_controller"
-application.register("dropzone", DropzoneController)
-
 import MapController from "./map_controller"
 application.register("map", MapController)
 
@@ -18,3 +15,6 @@ application.register("ramen-reviews--form", RamenReviews__FormController)
 
 import SwiperController from "./swiper_controller"
 application.register("swiper", SwiperController)
+
+import UploadController from "./upload_controller"
+application.register("upload", UploadController)
