@@ -7,6 +7,8 @@ export default class extends Controller {
 
   connect() {
     console.log('Upload controller connected')
+    // Start new indices after existing images
+    this.newImageIndex = this.previewTargets.length
   }
 
   handleFiles(event) {
@@ -18,7 +20,9 @@ export default class extends Controller {
   }
 
   uploadFile(file) {
-    const preview = this.createPreview(file)
+    const currentIndex = this.newImageIndex++
+    const preview = this.createPreview(file, currentIndex)
+
     const upload = new DirectUpload(
       file,
       this.inputTarget.dataset.directUploadUrl,
@@ -36,27 +40,29 @@ export default class extends Controller {
       } else {
         const hiddenField = document.createElement('input')
         hiddenField.type = 'hidden'
-        hiddenField.name =
-          'ramen_review[review_images_attributes][][blob_signed_id]'
+        hiddenField.name = `ramen_review[review_images_attributes][${currentIndex}][blob_signed_id]`
         hiddenField.value = blob.signed_id
         preview.appendChild(hiddenField)
 
         const positionField = document.createElement('input')
         positionField.type = 'hidden'
-        positionField.name =
-          'ramen_review[review_images_attributes][][position]'
+        positionField.name = `ramen_review[review_images_attributes][${currentIndex}][position]`
         positionField.value = this.previewTargets.indexOf(preview)
         positionField.dataset.sortableTarget = 'position'
         preview.appendChild(positionField)
+
         preview.classList.add('upload-complete')
         this.dispatch('imageAdded', { detail: { preview } })
       }
     })
   }
 
-  createPreview(file) {
+  createPreview(file, index) {
     const template = this.templateTarget.content.cloneNode(true)
     const preview = template.querySelector('.preview')
+
+    // Set data attribute for the index
+    preview.dataset.index = index
 
     const image = preview.querySelector('img')
     image.src = URL.createObjectURL(file)
@@ -80,18 +86,23 @@ export default class extends Controller {
   }
 
   removeImage(event) {
-    const preview = event.target.closest('.preview')
-    const idField = preview.querySelector('input[name*="[id]"]')
-    if (idField) {
-      const destroyField = document.createElement('input')
-      destroyField.type = 'hidden'
-      destroyField.name = idField.name.replace('[id]', '[_destroy]')
-      destroyField.value = '1'
-      this.element.appendChild(destroyField)
+    event.preventDefault();
+    const preview = event.target.closest('.preview');
+
+    // Find destroy field if this is an existing image
+    const destroyField = preview.querySelector('[data-upload-target="destroyField"]');
+
+    if (destroyField) {
+      // This is an existing image, mark it for destruction
+      destroyField.value = "1";
+
+      // Hide the preview but don't remove it
+      preview.style.display = 'none';
+    } else {
+      // This is a new upload, just remove it
+      preview.remove();
     }
 
-    preview.remove()
-
-    this.dispatch('imageRemoved')
+    this.dispatch('imageRemoved');
   }
 }

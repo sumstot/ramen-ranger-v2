@@ -13,25 +13,35 @@
         = render 'restaurant_search_result', restaurant: selected_restaurant
     = link_to 'Add Restaurant', new_restaurant_path
   = simple_form_for @ramen_review, data: { turbo: false } do |f|
-    = f.hidden_field :restaurant_id, value: @selected_restaurant&.id, data: { 'ramen-reviews--form-target': 'restaurantId' }
+    = f.hidden_field :restaurant_id, value: @ramen_review&.restaurant_id ||@selected_restaurant&.id, data: { 'ramen-reviews--form-target': 'restaurantId' }
 
     %label.form-label Upload images
     .image-upload-area.mb-4{ data: { controller: 'upload sortable', sortable_target: 'container', upload_target: 'container' } }
       .upload-button.mb-2
         %label.btn.btn-outline-primary
           Drag and drop files here or click to upload
-          = f.file_field :images, multiple: true, direct_upload: true, class: 'd-none', data: { upload_target: 'input', action: 'change->upload#handleFiles' }
+          = file_field_tag :images, multiple: true, direct_upload: true, class: 'd-none', data: { upload_target: 'input', action: 'change->upload#handleFiles' }
 
       .preview-container{ data: { sortable_options: { animation: 150 }.to_json, action: 'sortablejs:end->sortable#updateOrder' } }
         - if @ramen_review.persisted? && @ramen_review.review_images.any?
-          - @ramen_review.review_images.order(:position).each do |review_image|
-            .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item' } }
-              - if review_image.image.attached?
-                = image_tag review_image.image
+          = f.fields_for :review_images, @ramen_review.review_images.order(:position) do |fi|
+            .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item', image_index: fi.index } }
+              - if fi.object.image.attached?
+                = image_tag fi.object.image
               .card-body.p-2
                 %button.btn.btn-sm.btn-danger.position-absolute.top-0.end-0.m-1{ type: 'button', data: { action: 'click->upload#removeImage' } } ×
-                = f.hidden_field "review_images_attributes[][id]", value: review_image.id
-                = f.hidden_field "review_images_attributes[][position]", value: review_image.position, data: { sortable_target: 'position' }
+                = fi.hidden_field :id
+                = fi.hidden_field :position, data: { sortable_target: 'position' }
+                = fi.hidden_field :_destroy, value: "0", data: { upload_target: 'destroyField' }
+          -# - @ramen_review.review_images.order(:position).each_with_index do |review_image, index|
+          -#   .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item' } }
+          -#     - if review_image.image.attached?
+          -#       = image_tag review_image.image
+          -#     .card-body.p-2
+          -#       %button.btn.btn-sm.btn-danger.position-absolute.top-0.end-0.m-1{ type: 'button', data: { action: 'click->upload#removeImage' } } ×
+          -#       = f.fields_for :review_images, review_image, child_index: index do |fi|
+          -#       = f.hidden_field "ramen_review[review_images_attributes][#{index}][id]", review_image.id
+          -#       = f.hidden_field "ramen_review[review_images_attributes][#{index}][position]", review_image.position, data: { sortable_target: 'position' }
 
       %template{ data: { upload_target: 'template' } }
         .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item' } }
