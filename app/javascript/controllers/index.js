@@ -18,3 +18,6 @@ application.register("swiper", SwiperController)
 
 import UploadController from "./upload_controller"
 application.register("upload", UploadController)
+
+import SortableController from "./sortable_controller"
+application.register("sortable", SortableController)

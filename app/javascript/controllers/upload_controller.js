@@ -6,9 +6,19 @@ export default class extends Controller {
   static targets = ['input', 'container', 'preview', 'template']
 
   connect() {
-    console.log('Upload controller connected')
-    // Start new indices after existing images
     this.newImageIndex = this.previewTargets.length
+  }
+
+  previewTargetConnected() {
+    console.log('preview target connected')
+    this.newImageIndex = this.visiblePreviewTargets.length
+    console.log(this.newImageIndex)
+  }
+
+  get visiblePreviewTargets() {
+    return this.previewTargets.filter(target =>
+      target.style.display !== 'none'
+    )
   }
 
   handleFiles(event) {
@@ -20,7 +30,7 @@ export default class extends Controller {
   }
 
   uploadFile(file) {
-    const currentIndex = this.newImageIndex++
+    const currentIndex = this.newImageIndex
     const preview = this.createPreview(file, currentIndex)
 
     const upload = new DirectUpload(
@@ -61,7 +71,6 @@ export default class extends Controller {
     const template = this.templateTarget.content.cloneNode(true)
     const preview = template.querySelector('.preview')
 
-    // Set data attribute for the index
     preview.dataset.index = index
 
     const image = preview.querySelector('img')
@@ -89,17 +98,12 @@ export default class extends Controller {
     event.preventDefault();
     const preview = event.target.closest('.preview');
 
-    // Find destroy field if this is an existing image
     const destroyField = preview.querySelector('[data-upload-target="destroyField"]');
 
     if (destroyField) {
-      // This is an existing image, mark it for destruction
       destroyField.value = "1";
-
-      // Hide the preview but don't remove it
       preview.style.display = 'none';
     } else {
-      // This is a new upload, just remove it
       preview.remove();
     }
 

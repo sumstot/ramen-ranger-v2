@@ -16,13 +16,13 @@
     = f.hidden_field :restaurant_id, value: @ramen_review&.restaurant_id ||@selected_restaurant&.id, data: { 'ramen-reviews--form-target': 'restaurantId' }
 
     %label.form-label Upload images
-    .image-upload-area.mb-4{ data: { controller: 'upload sortable', sortable_target: 'container', upload_target: 'container' } }
+    .image-upload-area.mb-4{ data: { controller: 'upload', sortable_target: 'container', upload_target: 'container' } }
       .upload-button.mb-2
         %label.btn.btn-outline-primary
           Drag and drop files here or click to upload
           = file_field_tag :images, multiple: true, direct_upload: true, class: 'd-none', data: { upload_target: 'input', action: 'change->upload#handleFiles' }
 
-      .preview-container{ data: { sortable_options: { animation: 150 }.to_json, action: 'sortablejs:end->sortable#updateOrder' } }
+      .preview-container{ data: { controller: 'sortable', sortable_target: 'container' } }
         - if @ramen_review.persisted? && @ramen_review.review_images.any?
           = f.fields_for :review_images, @ramen_review.review_images.order(:position) do |fi|
             .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item', image_index: fi.index } }
