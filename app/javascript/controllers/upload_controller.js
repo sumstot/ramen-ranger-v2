@@ -9,12 +9,6 @@ export default class extends Controller {
     this.newImageIndex = this.previewTargets.length
   }
 
-  previewTargetConnected() {
-    console.log('preview target connected')
-    this.newImageIndex = this.visiblePreviewTargets.length
-    console.log(this.newImageIndex)
-  }
-
   get visiblePreviewTargets() {
     return this.previewTargets.filter(target =>
       target.style.display !== 'none'
@@ -24,6 +18,7 @@ export default class extends Controller {
   handleFiles(event) {
     Array.from(event.target.files).forEach((file) => {
       this.uploadFile(file)
+      this.newImageIndex ++
     })
 
     event.target.value = null
@@ -57,7 +52,7 @@ export default class extends Controller {
         const positionField = document.createElement('input')
         positionField.type = 'hidden'
         positionField.name = `ramen_review[review_images_attributes][${currentIndex}][position]`
-        positionField.value = this.previewTargets.indexOf(preview)
+        positionField.value = currentIndex
         positionField.dataset.sortableTarget = 'position'
         preview.appendChild(positionField)
 

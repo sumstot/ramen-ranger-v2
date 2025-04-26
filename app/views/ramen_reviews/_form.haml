@@ -24,15 +24,15 @@
 
       .preview-container{ data: { controller: 'sortable', sortable_target: 'container' } }
         - if @ramen_review.persisted? && @ramen_review.review_images.any?
-          = f.fields_for :review_images, @ramen_review.review_images.order(:position) do |fi|
-            .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item', image_index: fi.index } }
-              - if fi.object.image.attached?
-                = image_tag fi.object.image
+          = f.fields_for :review_images, @ramen_review.review_images.order(:position) do |ff, index|
+            .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item', image_index: ff.index } }
+              - if ff.object.image.attached?
+                = image_tag ff.object.image
               .card-body.p-2
                 %button.btn.btn-sm.btn-danger.position-absolute.top-0.end-0.m-1{ type: 'button', data: { action: 'click->upload#removeImage' } } ×
-                = fi.hidden_field :id
-                = fi.hidden_field :position, data: { sortable_target: 'position' }
-                = fi.hidden_field :_destroy, value: "0", data: { upload_target: 'destroyField' }
+                = ff.hidden_field :id
+                = ff.hidden_field :position, value: index, data: { sortable_target: 'position' }
+                = ff.hidden_field :_destroy, value: "0", data: { upload_target: 'destroyField' }
           -# - @ramen_review.review_images.order(:position).each_with_index do |review_image, index|
           -#   .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item' } }
           -#     - if review_image.image.attached?
