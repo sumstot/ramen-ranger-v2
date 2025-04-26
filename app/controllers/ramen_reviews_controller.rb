@@ -28,7 +28,7 @@ class RamenReviewsController < ApplicationController
   def create
     @ramen_review = RamenReview.new(ramen_review_params)
     if @ramen_review.save
-      redirect_to edit_ramen_review_url(@ramen_review), notice: 'sucessfully created'
+      redirect_to ramen_review_url(@ramen_review), notice: 'sucessfully created'
     else
       render :new, status: :unprocessable_entity
     end
