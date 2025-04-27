@@ -36,7 +36,7 @@ export default class extends Controller {
       )
       if (positionInput) {
         console.log(`Setting position for item ${index} to ${index}`)
-        positionInput.value = index
+        positionInput.value = index + 1
       }
     })
 

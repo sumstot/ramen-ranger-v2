@@ -6,7 +6,7 @@ export default class extends Controller {
   static targets = ['input', 'container', 'preview', 'template']
 
   connect() {
-    this.newImageIndex = this.previewTargets.length
+    this.newImageIndex = this.previewTargets.length + 1
   }
 
   get visiblePreviewTargets() {
@@ -39,6 +39,7 @@ export default class extends Controller {
     )
 
     upload.create((error, blob) => {
+      console.log(`current index is ${currentIndex}`)
       if (error) {
         preview.classList.add('upload-error')
         console.error(error)
