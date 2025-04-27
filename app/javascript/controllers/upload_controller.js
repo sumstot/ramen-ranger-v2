@@ -1,4 +1,3 @@
-// app/javascript/controllers/upload_controller.js
 import { Controller } from '@hotwired/stimulus'
 import { DirectUpload } from '@rails/activestorage'
 
@@ -39,7 +38,6 @@ export default class extends Controller {
     )
 
     upload.create((error, blob) => {
-      console.log(`current index is ${currentIndex}`)
       if (error) {
         preview.classList.add('upload-error')
         console.error(error)

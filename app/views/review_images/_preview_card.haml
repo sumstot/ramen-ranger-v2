@@ -1,0 +1,7 @@
+%template{ data: { upload_target: 'template' } }
+  .preview.card.mb-2{ data: { upload_target: 'preview', sortable_target: 'item' } }
+    %img.card-img-top
+    .card-body.p-2
+      .progress.mb-2
+        .progress-bar{ style: 'width: 0%' }
+      %button.btn.btn-sm.btn-danger.position-absolute.top-0.end-0.m-1{ type: 'button', data: { action: 'click->upload#removeImage' } } ×
