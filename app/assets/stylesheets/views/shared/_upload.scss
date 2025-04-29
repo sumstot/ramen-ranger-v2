@@ -1,0 +1,56 @@
+.image-upload-area {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.image-upload-area.drag-over {
+  border-color: #4a86e8;
+  background-color: rgba(74, 134, 232, 0.1);
+}
+
+.upload-button label {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.upload-button label:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.preview {
+  position: relative;
+  width: 200px;
+  cursor: move;
+}
+
+.preview img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: 4px 4px 0 0;
+}
+
+.preview .progress {
+  height: 4px;
+}
+
+.preview.upload-error {
+  border-color: #dc3545;
+}
+
+.preview.upload-complete .progress {
+  display: none;
+}
