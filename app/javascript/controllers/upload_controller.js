@@ -1,4 +1,3 @@
-// app/javascript/controllers/upload_controller.js
 import { Controller } from '@hotwired/stimulus'
 import { DirectUpload } from '@rails/activestorage'
 
@@ -6,21 +5,26 @@ export default class extends Controller {
   static targets = ['input', 'container', 'preview', 'template']
 
   connect() {
-    console.log('Upload controller connected')
-    // Start new indices after existing images
-    this.newImageIndex = this.previewTargets.length
+    this.newImageIndex = this.previewTargets.length + 1
+  }
+
+  get visiblePreviewTargets() {
+    return this.previewTargets.filter(target =>
+      target.style.display !== 'none'
+    )
   }
 
   handleFiles(event) {
     Array.from(event.target.files).forEach((file) => {
       this.uploadFile(file)
+      this.newImageIndex ++
     })
 
     event.target.value = null
   }
 
   uploadFile(file) {
-    const currentIndex = this.newImageIndex++
+    const currentIndex = this.newImageIndex
     const preview = this.createPreview(file, currentIndex)
 
     const upload = new DirectUpload(
@@ -47,7 +51,7 @@ export default class extends Controller {
         const positionField = document.createElement('input')
         positionField.type = 'hidden'
         positionField.name = `ramen_review[review_images_attributes][${currentIndex}][position]`
-        positionField.value = this.previewTargets.indexOf(preview)
+        positionField.value = currentIndex
         positionField.dataset.sortableTarget = 'position'
         preview.appendChild(positionField)
 
@@ -61,7 +65,6 @@ export default class extends Controller {
     const template = this.templateTarget.content.cloneNode(true)
     const preview = template.querySelector('.preview')
 
-    // Set data attribute for the index
     preview.dataset.index = index
 
     const image = preview.querySelector('img')
@@ -89,17 +92,12 @@ export default class extends Controller {
     event.preventDefault();
     const preview = event.target.closest('.preview');
 
-    // Find destroy field if this is an existing image
     const destroyField = preview.querySelector('[data-upload-target="destroyField"]');
 
     if (destroyField) {
-      // This is an existing image, mark it for destruction
       destroyField.value = "1";
-
-      // Hide the preview but don't remove it
       preview.style.display = 'none';
     } else {
-      // This is a new upload, just remove it
       preview.remove();
     }
 
