@@ -7,7 +7,6 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
     = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
-    %script{ src: 'https://unpkg.com/boxicons@2.1.4/dist/boxicons.js' }
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google.maps_api_key}&libraries=places,geometry,marker&callback=initMap", async: true, defer: true, "data-turbolinks-eval": false
   %body
     = yield
