@@ -3,7 +3,7 @@ class RestaurantsController < ApplicationController
   before_action :store_referer, only: :new
 
   def index
-    @restaurants = Restaurant.all
+    @pagy, @restaurants = pagy(Restaurant.all)
   end
 
   def new

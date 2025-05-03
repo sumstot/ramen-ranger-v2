@@ -1,3 +1,7 @@
 .restaurants__container
-  - @restaurants.each do |restaurant|
-    = render 'restaurant_card', restaurant: restaurant
+  = turbo_frame_tag :restauarnts_page, @pagy.page do
+    - @restaurants.each do |restaurant|
+      = render 'restaurant_card', restaurant: restaurant
+    - if @pagy.next
+      = turbo_frame_tag :resetaurants_page, @pagy.next, src: restaurants_path(page: @pagy.next), loading: :lazy do
+        = tag.div 'Loading...'
