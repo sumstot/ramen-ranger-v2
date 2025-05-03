@@ -1,5 +1,9 @@
 = render 'shared/navbar'
 = turbo_frame_tag 'search', target: "_top" do
-  .ramen-reviews__container
-    - @ramen_reviews.each do |ramen_review|
-      = render 'review_card', ramen_review: ramen_review
+  = turbo_frame_tag :ramen_reviews_page, @pagy.page do
+    .ramen-reviews__container
+      - @ramen_reviews.each do |ramen_review|
+        = render 'review_card', ramen_review: ramen_review
+    - if @pagy.next
+      = turbo_frame_tag :ramen_reviews_page, @pagy.next, src: ramen_reviews_path(page: @pagy.next), loading: :lazy do
+        = tag.div 'Loading...'
