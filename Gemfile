@@ -39,6 +39,7 @@ gem 'simple_form'
 gem 'geocoder'
 gem 'rubocop-rails', require: false
 gem 'acts_as_list'
+gem 'pagy'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -69,5 +70,3 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
 end
-
-gem "pagy", "~> 9.3"
