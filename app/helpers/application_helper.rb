@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Pagy::Frontend
   def review_card_score_stars(score)
     stars = []
     rounded_score = score.round

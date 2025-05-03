@@ -6,7 +6,7 @@ class RamenReviewsController < ApplicationController
 
   def index
     @q = RamenReview.includes(:review_images).ransack(params[:q])
-    @ramen_reviews = @q.result.includes(:restaurant).distinct(true)
+    @pagy, @ramen_reviews = pagy(@q.result.includes(:restaurant).distinct(true))
   end
 
   def new
