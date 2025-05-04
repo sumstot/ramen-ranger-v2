@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   get '/map', to: 'restaurants#map'
   get '/hall_of_fame', to: 'restaurants#hall_of_fame'
 
-  resources :restaurants
-  resources :ramen_reviews
+  resources :restaurants do
+    resource :favorite, module: :restaurants
+  end
+  resources :ramen_reviews do
+    resource :favorite, only: [:update], module: :ramen_reviews
+    resource :like
+  end
 end
