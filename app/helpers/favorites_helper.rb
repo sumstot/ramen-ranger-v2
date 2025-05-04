@@ -1,5 +1,9 @@
 module FavoritesHelper
-  def favorite_class(favoritable, user)
-    'is-favorited' if favoritable.favorited_by?(user)
+  def favorite_icon_hash(favoritable, user)
+    if favoritable.favorited_by?(user)
+      { name: 'bookmark', type: 'solid', color: '#fe9601' }
+    else
+      { name: 'bookmark', type: 'outline' }
+    end
   end
 end

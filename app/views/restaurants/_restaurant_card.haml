@@ -18,8 +18,7 @@
         %box-icon{ name: 'message-rounded-dots', type: 'solid', color: '#beb99b' }
         %span= restaurant.ramen_reviews.count
       .restaurant-card__bookmark{ onclick: 'event.stopPropagation();' }
-        = turbo_frame_tag :restaurant, :favorite, restaurant.id do
-          = render 'favorite', restaurant: restaurant, current_user: current_user
+        = render 'favorite', restaurant: restaurant, current_user: current_user
     .d-flex.align-items-center.pt-2
       %box-icon{ name: 'calendar-x', color: '#beb99b' }
       %span.restaurant-card__days-closed-text= restaurant.display_days_closed

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resource :favorite, module: :restaurants
   end
   resources :ramen_reviews do
-    resource :favorite, only: [:update], module: :ramen_reviews
+    resource :favorite, module: :ramen_reviews
     resource :like
   end
 end

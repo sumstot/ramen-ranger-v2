@@ -12,12 +12,11 @@
 
 @import 'shared/devise';
 @import 'shared/ramen-button';
+@import 'shared/favorite';
 
 @import 'views/shared/map';
 @import 'views/shared/navbar';
 @import 'views/shared/upload';
-@import 'views/shared/favorite';
-
 
 @import 'views/ramen_reviews/ramen-reviews';
 @import 'views/ramen_reviews/review-card';
