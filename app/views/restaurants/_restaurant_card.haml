@@ -17,7 +17,9 @@
       = link_to restaurant_path(restaurant.id), class: 'restaurant-card__reviews-link' do
         %box-icon{ name: 'message-rounded-dots', type: 'solid', color: '#beb99b' }
         %span= restaurant.ramen_reviews.count
-      %box-icon.restaurant-card__bookmark{ name: 'bookmark' }
+      .restaurant-card__bookmark{ onclick: 'event.stopPropagation();' }
+        = turbo_frame_tag :restaurant, :favorite, restaurant.id do
+          = render 'favorite', restaurant: restaurant, current_user: current_user
     .d-flex.align-items-center.pt-2
       %box-icon{ name: 'calendar-x', color: '#beb99b' }
       %span.restaurant-card__days-closed-text= restaurant.display_days_closed

@@ -64,6 +64,9 @@
     cursor: pointer;
     fill: $_link-hover-yellow;
   }
+  .is-favorited {
+    color: $_color-selected-yellow;
+  }
 }
 
 .restaurant-card__days-closed-text {

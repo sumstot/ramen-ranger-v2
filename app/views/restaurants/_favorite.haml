@@ -1,0 +1,2 @@
+= button_to restaurant_favorite_path(restaurant), method: :patch, class: 'favorite__button' do
+  %box-icon{ name: 'bookmark', class: favorite_class(restaurant, current_user) }
