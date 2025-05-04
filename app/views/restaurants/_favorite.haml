@@ -1,0 +1,3 @@
+= turbo_frame_tag restaurant, :favorite do
+  = button_to restaurant_favorite_path(restaurant), form_class: 'favorite__button', method: :patch do
+    %box-icon{ favorite_icon_hash(restaurant, current_user) }
