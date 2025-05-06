@@ -1,6 +1,6 @@
 class Restaurant < ApplicationRecord
+  include Favoritable
   has_many :ramen_reviews, dependent: :destroy
-  has_many :favorites, as: :favoritable
 
   validates :name, presence: true
   validates :jpn_name, presence: true
@@ -24,18 +24,6 @@ class Restaurant < ApplicationRecord
 
   def display_days_closed
     days_closed.map { |day| DAYS_OF_WEEK[day] }.join(', ')
-  end
-
-  def favorited_by?(user)
-    favorites.where(user: user).any?
-  end
-
-  def favorite(user)
-    favorites.where(user: user).first_or_create
-  end
-
-  def unfavorite(user)
-    favorites.where(user: user).destroy_all
   end
 
   private
