@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/map', to: 'restaurants#map'
   get '/hall_of_fame', to: 'restaurants#hall_of_fame'
 
+  mount MissionControl::Jobs::Engine, at: "/jobs"
+  
   resources :restaurants do
     resource :favorite, module: :restaurants
   end

@@ -40,6 +40,8 @@ gem 'geocoder'
 gem 'rubocop-rails', require: false
 gem 'acts_as_list'
 gem 'pagy'
+gem 'solid_queue'
+gem 'mission_control-jobs'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
