@@ -11,6 +11,7 @@ class Restaurant < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_address?
 
   DAYS_OF_WEEK = %w[Sun Mon Tues Wed Thurs Fri Sat Holiday].freeze
+  serialize :days_closed, Array
 
   def update_average_score
     update(average_score: ramen_reviews.average(:score).round(2))
