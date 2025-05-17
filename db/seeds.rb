@@ -33,7 +33,7 @@ names_index = 0
 
 names = ['Zen Laboratory', 'Buta no Hoshi', 'Kobe Gyu Ramen Yazawa', 'Kamigata Rainbow', 'Tonkotsu Mazesoba Kozou+', 'Menya Teru Nakatsu', 'Strike Ken', 'Menya New Classic', 'SPICExRAMEN SUSUSU', 'Moeyo Mensuke' ]
 jpn_names = ['善ラボラトリー', 'ぶたのほし', '神戸牛らーめん八坐', '上方レインボー', '豚骨まぜそばKOZOU＋', '麺や輝中津店', 'ストライク軒', 'メンヤニュークラシック', 'SPICExRAMENススス',  '燃えよ麺助' ]
-days = %w(Monday Tuesday Wednesday Thursday Friday Saturday Sunday Holiday)
+days = %i(monday tuesday wednesday thursday friday saturday sunday holiday)
 10.times do
   restaurant = Restaurant.new(
     name: names[names_index],
@@ -44,7 +44,7 @@ days = %w(Monday Tuesday Wednesday Thursday Friday Saturday Sunday Holiday)
   restaurant.prefecture = %w[Osaka Wakayama Kyoto Hyogo Tokyo].sample
   restaurant.station = %w[Sannomiya Umeda Fukushima Shibuya Kawaramachi Amagasaki].sample
   restaurant.days_closed = days.sample(2)
-  unless restaurant.save
+  unless restaurant.save!
     puts "Failed to save restaurant: #{restaurant.errors.full_messages.join(', ')}"
   end
   names_index += 1
