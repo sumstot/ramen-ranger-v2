@@ -4,8 +4,8 @@ git_source(:github) { |repo| 'https://github.com/#{repo}.git' }
 ruby file: '.ruby-version'
 
 gem 'rails', '~> 8.0.2'
+gem "sqlite3", '>= 2.1'
 gem 'sprockets-rails'
-gem 'pg', '~> 1.1'
 gem 'puma', '~> 6.4.0'
 gem 'jsbundling-rails'
 gem 'turbo-rails'
@@ -42,6 +42,8 @@ gem 'acts_as_list'
 gem 'pagy'
 gem 'solid_queue'
 gem 'mission_control-jobs'
+gem 'litestream'
+gem 'enumerize'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

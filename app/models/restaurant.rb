@@ -1,5 +1,6 @@
 class Restaurant < ApplicationRecord
   include Favoritable
+  extend Enumerize
   has_many :ramen_reviews, dependent: :destroy
 
   validates :name, presence: true
@@ -10,7 +11,7 @@ class Restaurant < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
-  DAYS_OF_WEEK = %w[Sun Mon Tues Wed Thurs Fri Sat Holiday].freeze
+  enumerize :days_closed, in: %i(monday tuesday wednesday thursday friday saturday sunday holiday), multiple: true, skip_validations: true
 
   def update_average_score
     update(average_score: ramen_reviews.average(:score).round(2))
@@ -23,7 +24,7 @@ class Restaurant < ApplicationRecord
   end
 
   def display_days_closed
-    days_closed.map { |day| DAYS_OF_WEEK[day] }.join(', ')
+    days_closed.to_sym.join(', ')
   end
 
   private
