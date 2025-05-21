@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_17_224815) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_03_134445) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -105,7 +105,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_17_224815) do
     t.string "prefecture", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "days_closed"
+    t.text "days_closed"
   end
 
   create_table "review_images", force: :cascade do |t|

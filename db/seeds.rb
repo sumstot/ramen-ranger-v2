@@ -38,12 +38,12 @@ days = %i(monday tuesday wednesday thursday friday saturday sunday holiday)
   restaurant = Restaurant.new(
     name: names[names_index],
     jpn_name: jpn_names[names_index],
-    date_opened: Date.new(rand(1970..2022))
+    date_opened: Date.new(rand(1970..2022)),
+    days_closed: days.sample(2),
+    address: addresses[address_index],
+    prefecture: %w[Osaka Wakayama Kyoto Hyogo Tokyo].sample,
+    station: %w[Sannomiya Umeda Fukushima Shibuya Kawaramachi Amagasaki].sample
   )
-  restaurant.address = addresses[address_index]
-  restaurant.prefecture = %w[Osaka Wakayama Kyoto Hyogo Tokyo].sample
-  restaurant.station = %w[Sannomiya Umeda Fukushima Shibuya Kawaramachi Amagasaki].sample
-  restaurant.days_closed = days.sample(2)
   unless restaurant.save!
     puts "Failed to save restaurant: #{restaurant.errors.full_messages.join(', ')}"
   end
