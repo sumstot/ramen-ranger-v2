@@ -11,7 +11,7 @@ class Restaurant < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
-  enumerize :days_closed, in: %i(monday tuesday wednesday thursday friday saturday sunday holiday), multiple: true, skip_validations: true
+  enumerize :days_closed, in: %i(monday tuesday wednesday thursday friday saturday sunday holiday), multiple: true
 
   def update_average_score
     update(average_score: ramen_reviews.average(:score).round(2))
