@@ -41,7 +41,7 @@ class RestaurantsController < ApplicationController
   end
 
   def restaurant_params
-    params.require(:restaurant).permit(:address, :name, :jpn_name, :date_opened, :station, :city, :prefecture, days_closed: [])
+    params.require(:restaurant).permit(:address, :name, :jpn_name, :date_opened, :station, :city, :prefecture, :days_closed)
   end
 
   def store_referer
