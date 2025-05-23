@@ -13,46 +13,6 @@ User.find_or_create_by!(email: 'soren@example.com') do |user|
   user.admin = true
 end
 
-# puts 'Generating new restaurants'
-
-# addresses = [
-#   "3-1-15 Mitsuyakita Yodogawa Ku, Osaka", # kirimen
-#   "1-2-2 Minamimorimachi Kita Ku, Osaka", # hayato
-#   "25-4 Mibuaiaicho Nakagyo Ku, Kyoto", #X seabura no kami
-#   "1-5-1 Nakatsu Kita Ku, Osaka", # menya new classic
-#   "5-12-21 Fukushima Fukushima Ku, Osaka", # moeyo mensuke
-#   "1-16 Nagasunishidori Amagasaki, Hyogo", #X buta no hoshi
-#   "1-11-5 Shibata Kita Ku, Osaka", # zen labs
-#   "1-2 Fukushima Fukushima Ku, Osaka", #X kozou +
-#   "4-6-3 Katsuyama Tennoji Ku, Osaka", # kamigata rainbow
-#   "2-11-1 Sannomiyacho Chuo Ku, Kobe" # kobe gyu ramen yazawa
-# ]
-# index = 1
-# address_index = 0
-# names_index = 0
-
-# names = ['Zen Laboratory', 'Buta no Hoshi', 'Kobe Gyu Ramen Yazawa', 'Kamigata Rainbow', 'Tonkotsu Mazesoba Kozou+', 'Menya Teru Nakatsu', 'Strike Ken', 'Menya New Classic', 'SPICExRAMEN SUSUSU', 'Moeyo Mensuke' ]
-# jpn_names = ['善ラボラトリー', 'ぶたのほし', '神戸牛らーめん八坐', '上方レインボー', '豚骨まぜそばKOZOU＋', '麺や輝中津店', 'ストライク軒', 'メンヤニュークラシック', 'SPICExRAMENススス',  '燃えよ麺助' ]
-# 10.times do
-#   restaurant = Restaurant.new(
-#     name: names[names_index],
-#     jpn_name: jpn_names[names_index],
-#     date_opened: Date.new(rand(1970..2022)),
-#     address: addresses[address_index],
-#     prefecture: %w[Osaka Wakayama Kyoto Hyogo Tokyo].sample,
-#     station: %w[Sannomiya Umeda Fukushima Shibuya Kawaramachi Amagasaki].sample
-#   )
-
-#   selected_days = %i[monday tuesday wednesday thursday friday saturday sunday holiday].sample(2)
-#   restaurant.days_closed = selected_days
-
-#   unless restaurant.save!
-#     puts "Failed to save restaurant: #{restaurant.errors.full_messages.join(', ')}"
-#   end
-#   names_index += 1
-#   address_index += 1
-# end
-
 puts 'Generating new restaurants with debugging'
 
 addresses = [
