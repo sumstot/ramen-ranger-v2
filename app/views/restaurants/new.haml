@@ -17,6 +17,6 @@
     .mb-3
       = f.input :address, input_html: { class: 'form-control' }
     .mb-3
-      = f.input :days_closed, as: :check_boxes, collection: Restaurant::DAYS_OF_WEEK.each_with_index.map{ |day, index| [day, index] }, label: 'Days Closed', item_wrapper_class: 'form-check', include_hidden: false, input_html: { class: 'form-check-input' }
+      = f.input :days_closed, as: :check_boxes, collection: Restaurant.days_closed.options,  label: 'Days Closed', item_wrapper_class: 'form-check', include_hidden: false, input_html: { class: 'form-check-input' }
     .mb-4.d-flex.align-items-center.justify-content-center
       = f.submit class: 'btn btn-primary'

@@ -11,7 +11,8 @@ class Restaurant < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
-  enumerize :days_closed, in: %i(monday tuesday wednesday thursday friday saturday sunday holiday), multiple: true
+  serialize :days_closed, type: Array, coder: JSON
+  enumerize :days_closed, in: %i[monday tuesday wednesday thursday friday saturday sunday holiday none], multiple: true, default: []
 
   def update_average_score
     update(average_score: ramen_reviews.average(:score).round(2))
@@ -21,10 +22,6 @@ class Restaurant < ApplicationRecord
     first_images = fetch_first_images
     additional_images = fetch_additional_images(first_images) if first_images.size < 3
     (first_images + additional_images.to_a).uniq(&:id)
-  end
-
-  def display_days_closed
-    days_closed.to_sym.join(', ')
   end
 
   private
