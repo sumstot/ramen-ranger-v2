@@ -22,12 +22,16 @@ class RestaurantsController < ApplicationController
   end
 
   def map
-    @restaurants = Restaurant.all
+    @q = Restaurant.ransack(params[:q])
+    @restaurants = @q.result
     @markers = @restaurants.geocoded.map do |restaurant|
       {
+        id: restaurant.id,
         lat: restaurant.latitude,
         lng: restaurant.longitude,
-        color: helpers.star_color(restaurant.average_score)
+        color: helpers.star_color(restaurant.average_score),
+        name: restaurant.name,
+        jpn_name: restaurant.jpn_name
       }
     end
   end
