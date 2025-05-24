@@ -7,7 +7,11 @@
     .navbar__search
       = search_form_for @q, url: root_path, method: :get, data: { turbo_frame: 'search' } do |f|
         = f.search_field :soup_or_restaurant_name_or_restaurant_jpn_name_or_restaurant_station_or_restaurant_city_or_restaurant_prefecture_cont, placeholder: 'type, location, or name', oninput: 'this.form.requestSubmit()', class: 'form-control'
-
+  - if current_page?(map_restaurants_url)
+    %box-icon.navbar__search-icon{ name: 'search' }
+    .navbar__search
+      = search_form_for @q, url: map_restaurants_url, data: { turbo_frame: "map-container", controller: "search" } do |f|
+        = f.search_field :name_cont, placeholder: "Search restaurants...", oninput: 'this.form.requestSubmit()', class: 'form-control'
   .navbar__navigation-container{ data: { action: 'click->navbar#toggleDropdown click@window->navbar#closeDropdown' } }
     %box-icon{ name: 'menu', size: '24px' }
     .navbar__nav-links.is-hidden{ data: { navbar_target: 'navlinks' } }
@@ -16,7 +20,7 @@
           %box-icon{ name: 'store-alt' }
           %p.navbar__nav-link-text Restaurants
       .navbar__nav-link
-        = link_to map_path, class: 'd-flex align-items-center' do
+        = link_to map_restaurants_url, class: 'd-flex align-items-center' do
           %box-icon{ name: 'map', type: 'solid' }
           %p.navbar__nav-link-text Ramen Map
       .navbar__nav-link
