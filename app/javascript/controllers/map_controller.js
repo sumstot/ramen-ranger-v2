@@ -1,6 +1,6 @@
 // app/javascript/controllers/map_controller.js
 import { Controller } from '@hotwired/stimulus'
-
+import { MarkerClusterer } from '@googlemaps/markerclusterer'
 export default class extends Controller {
   static targets = ['map']
 
