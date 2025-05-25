@@ -10,8 +10,11 @@
   - if current_page?(map_restaurants_url)
     %box-icon.navbar__search-icon{ name: 'search' }
     .navbar__search
-      = search_form_for @q, url: map_restaurants_url, data: { turbo_frame: "map-container", controller: "search" } do |f|
-        = f.search_field :name_cont, placeholder: "Search restaurants...", oninput: 'this.form.requestSubmit()', class: 'form-control'
+      = search_form_for @q, url: map_restaurants_url,
+                      data: { map_target: "form" } do |f|
+        = f.search_field :name_cont, placeholder: "Search restaurants...",
+                        data: { map_target: 'field', action: 'input->map#search' },
+                        class: 'form-control'
   .navbar__navigation-container{ data: { action: 'click->navbar#toggleDropdown click@window->navbar#closeDropdown' } }
     %box-icon{ name: 'menu', size: '24px' }
     .navbar__nav-links.is-hidden{ data: { navbar_target: 'navlinks' } }

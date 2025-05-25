@@ -1,2 +1,4 @@
-= render '/shared/navbar'
-= render '/shared/map', markers: @markers.to_json
+
+%div{ data: { controller: 'map', map_markers_value: @markers.to_json } }
+  = render '/shared/navbar'
+  #js-map{ data: { map_target: 'map' }, style: "height: 100vh;" }

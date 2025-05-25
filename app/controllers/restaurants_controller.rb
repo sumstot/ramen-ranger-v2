@@ -34,6 +34,15 @@ class RestaurantsController < ApplicationController
         jpn_name: restaurant.jpn_name
       }
     end
+
+    puts "Markers count: #{@markers.count}"
+    puts "First marker: #{@markers.first.inspect}" if @markers.any?
+    puts "=== END MAP ACTION ==="
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { markers: @markers } }
+    end
   end
 
   def hall_of_fame; end
