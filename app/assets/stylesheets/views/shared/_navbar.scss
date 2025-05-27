@@ -6,6 +6,7 @@
   background-color: #fff;
   padding: 8px 16px;
   line-height: 1;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
 }
 
 
@@ -23,31 +24,91 @@
 
 .navbar__nav-links {
   position: absolute;
+  top: calc(100% + 10px);
   right: -16px;
-  width: 180px;
-  background-color: #fff;
-  border-radius: 8px;
+  width: 200px;
+  min-width: 200px;
+  background-color: $dropdown-bg;
+  border-radius: $dropdown-border-radius;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+
+  &:not(.is-hidden) {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 }
 
 .navbar__nav-link {
-  padding: 16px;
-  font-size: 18px;
-  text-decoration: none;
-  &:not(last-child) {
-    border-bottom: solid 1px gray;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);;
+  transition: all 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
   }
+
   &:hover {
-    background-color: lightgray;
+    background-color: $_link-hover-yellow;
+    transform: translateX(4px);
   }
+
   a {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    color: #2c3e50;
     text-decoration: none;
-    color: initial;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $_link-hover-yellow;
+    }
   }
 }
 
 .navbar__nav-link-text {
   margin-bottom: 0;
-  padding-left: 8px;
+  padding-left: 12px;
+  font-size: inherit;
+}
+
+box-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .navbar__nav-links {
+    right: -10px;
+    min-width: 180px;
+  }
+
+  .navbar__nav-link {
+    a {
+      padding: 14px 16px;
+      font-size: 15px;
+    }
+  }
+
+  .navbar__nav-link-text {
+    padding-left: 10px;
+  }
+}
+
+@supports (backdrop-filter: blur(10px)) {
+  .navbar__nav-links {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+  }
 }
 
 .navbar__search {
