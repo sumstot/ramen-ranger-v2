@@ -37,7 +37,7 @@
 
     = f.rich_text_area :content
     .mt-2
-      = f.input :soup, as: :select, collection: RamenReview::SOUP_TYPES, input_html: { class: 'form-select' }
+      = f.input :soup, as: :select, input_html: { class: 'form-select' }
     .mt-2
       = f.input :score, as: :select, collection: RamenReview::POSSIBLE_SCORES, selected: 3.0, include_blank: false, input_html: { class: 'form-select' }
     .ramen-reviews__button-container
