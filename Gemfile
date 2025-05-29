@@ -4,8 +4,8 @@ git_source(:github) { |repo| 'https://github.com/#{repo}.git' }
 ruby file: '.ruby-version'
 
 gem 'rails', '~> 8.0.2'
-gem "sqlite3", '>= 2.1'
-gem 'sprockets-rails'
+gem 'sqlite3', '>= 2.1'
+gem 'propshaft'
 gem 'puma', '~> 6.4.0'
 gem 'jsbundling-rails'
 gem 'turbo-rails'
@@ -24,6 +24,7 @@ gem 'bootsnap', require: false
 # Use Sass to process CSS
 gem 'sassc-rails'
 gem "bootstrap"
+gem 'cssbundling-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem 'image_processing', '~> 1.2'
