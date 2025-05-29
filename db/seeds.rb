@@ -102,10 +102,9 @@ if test_restaurant.save
 end
 
 puts 'Generating reviews'
-soup = %w[Niboshi Tonkotsu Shoyu Shio Tantanmen Miso Chukasoba Sokisoba]
 20.times do
   ramen_review = RamenReview.create!(
-    soup: soup.sample,
+    soup: RamenReview.soup.values.sample,
     score: rand(3.0..5.0),
     restaurant_id: Restaurant.all.sample.id
   )
