@@ -22,8 +22,8 @@ gem 'tzinfo-data', platforms: %i[ mingw mswin x64_mingw jruby ]
 gem 'bootsnap', require: false
 
 # Use Sass to process CSS
-gem 'sassc-rails'
-gem "bootstrap"
+# gem 'sassc-rails'
+# gem "bootstrap"
 gem 'cssbundling-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
@@ -35,7 +35,6 @@ gem 'ransack'
 gem 'haml'
 gem 'browser'
 gem 'pry-rails'
-gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'geocoder'
 gem 'rubocop-rails', require: false
