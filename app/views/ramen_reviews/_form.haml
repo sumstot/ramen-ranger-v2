@@ -20,7 +20,7 @@
       .upload-button.mb-2
         %label.btn.btn-outline-primary
           Drag and drop files here or click to upload
-          = file_field_tag :images, multiple: true, direct_upload: true, class: 'd-none', data: { upload_target: 'input', action: 'change->upload#handleFiles' }
+          = file_field_tag :images, multiple: true, direct_upload: true, class: 'is-hidden', data: { upload_target: 'input', action: 'change->upload#handleFiles' }
 
       .preview-container{ data: { controller: 'sortable', sortable_target: 'container' } }
         - if @ramen_review.persisted? && @ramen_review.review_images.any?
