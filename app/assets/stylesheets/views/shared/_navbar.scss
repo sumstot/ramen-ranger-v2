@@ -8,7 +8,7 @@
   border-bottom: 1px solid #e2e8f0;
   z-index: 1000;
   padding: 0 16px;
-  height: 64px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -38,17 +38,18 @@
   width: 100%;
   height: 40px;
   padding: 0 16px 0 44px;
-  border: 2px solid #e2e8f0;
+  border: 1px solid #e2e8f0; // Thinner border
   border-radius: 12px;
   font-size: 16px;
-  background: #ffffff;
+  background: #f8fafc; // Light gray background
   transition: all 0.2s ease;
   outline: none;
 }
 
 .navbar__search-input:focus {
   border-color: #e74d30;
-  box-shadow: 0 0 0 3px rgba(231, 77, 48, 0.1);
+  background: #ffffff; // White on focus
+  box-shadow: 0 0 0 2px rgba(231, 77, 48, 0.1); // Smaller shadow
 }
 
 .navbar__search-icon {

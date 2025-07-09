@@ -1,21 +1,22 @@
 .search-container {
   max-width: 600px;
   margin: 0 auto;
-  position: relative;
+  // position: relative;
+  width: 100%;
 }
 
 .main-search {
   position: relative;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  // box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
   overflow: hidden;
 }
 
 .search-input-wrapper {
   display: flex;
   align-items: center;
-  padding: 4px;
 }
 
 .search-input {

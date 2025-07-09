@@ -4,7 +4,8 @@
       .search-input-wrapper
         = f.search_field :soup_or_restaurant_name_or_restaurant_jpn_name_or_restaurant_station_or_restaurant_city_or_restaurant_prefecture_cont, placeholder: 'type, location, or name', oninput: 'this.form.requestSubmit()', class: 'search-input'
         .search-actions
-          %button.advanced-search-toggle{ data: { 'advanced-search-target': 'toggleButton', action: 'click->advanced-search#toggleAdvancedSearch' } } Advanced
+          .advanced-search-toggle{ data: { 'advanced-search-target': 'toggleButton', action: 'click->advanced-search#toggleAdvancedSearch' } }
+            %box-icon{ name: 'slider', size: '20px' }
     .advanced-search-panel{ data: { 'advanced-search-target': 'panel' } }
       .filter-section
         .filter-title Soup Type

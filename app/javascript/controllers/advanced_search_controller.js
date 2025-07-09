@@ -16,7 +16,8 @@ export default class extends Controller {
     event.preventDefault();
     this.soupCheckboxTargets.forEach(cb => cb.checked = false);
     if (this.panelTarget) {
-      const form = this.element.querySelector('form');
+      console.log(this.element)
+      const form = this.element;
       if (form) form.requestSubmit();
     }
   }
