@@ -31,7 +31,8 @@ class RestaurantsController < ApplicationController
         lng: restaurant.longitude,
         color: helpers.star_color(restaurant.average_score),
         name: restaurant.name,
-        jpn_name: restaurant.jpn_name
+        jpn_name: restaurant.jpn_name,
+        info_window: render_to_string(partial: 'restaurants/info_window', locals: { restaurant:, review_images: @review_images })
       }
     end
 

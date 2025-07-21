@@ -1,0 +1,43 @@
+.modern-info-window
+  .info-window-header
+    .info-window-swiper.swiper{ data: { controller: 'swiper', swiper_target: 'swiper' } }
+      - if review_images.present?
+        .swiper-wrapper
+          - review_images.each do |review_image|
+            .swiper-slide.info-window-slide
+              = image_tag(review_image.image.variant(resize_to_limit: [320, 180]),
+                         loading: 'lazy',
+                         alt: "#{restaurant.name} review photo")
+        .swiper-pagination{ data: { swiper_target: 'pagination' } }
+      - else
+        .info-window-slide
+          no image
+          -# = image_tag('ramen-placeholder.jpg',
+          -#            alt: restaurant.name,
+          -#            class: 'placeholder-image')
+    .info-window-gradient
+
+  .info-window-content
+    %div.restaurant-name
+      = restaurant.name
+    %div.restaurant-jpn-name
+      = restaurant.jpn_name
+
+    .rating-section
+      %div.rating-score
+        = format('%.2f', restaurant.average_score)
+      %div.rating-stars
+        - review_card_score_stars(restaurant.average_score).each do |star|
+          %box-icon.bx-sm{ name: star[:name], type: star[:type], color: star[:color], size: 'xs' }
+
+    .info-row
+      %div.info-label
+        Opened
+      %div.info-value
+        = restaurant.date_opened
+
+    .info-row
+      %div.info-label
+        Reviews
+      %div.info-value
+        = "#{restaurant.ramen_reviews.count} reviews"

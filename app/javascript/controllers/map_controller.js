@@ -56,11 +56,24 @@ export default class extends Controller {
         glyph: glyphSvg
       })
 
+      const infowindow = new google.maps.InfoWindow({
+        content: marker.infowindow,
+        ariaLabel: 'restaurant',
+      })
+
       const markerInstance = new google.maps.marker.AdvancedMarkerElement({
         map: this.map,
         position: { lat: parseFloat(marker.lat), lng: parseFloat(marker.lng) },
         content: pinBackground.element,
       })
+
+      markerInstance.addListener('click', () => {
+        infowindow.open({
+          anchor: markerInstance,
+          map: this.map,
+        })
+      })
+
       this.markerInstances.push(markerInstance)
     })
   }
