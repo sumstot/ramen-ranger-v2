@@ -12,7 +12,6 @@
         = f.search_field :name_cont, placeholder: "Search restaurants...",
                         data: { map_target: 'field', action: 'input->map#search' },
                         class: 'navbar__search-input'
-        %box-icon.navbar__search-icon{ name: 'search', size: '20px' }
   .navbar__menu-container{ data: { action: 'click->navbar#toggleDropdown click@window->navbar#closeDropdown' } }
     %box-icon{ name: 'menu', size: '24px' }
     .navbar__dropdown{ data: { navbar_target: 'navlinks' } }
