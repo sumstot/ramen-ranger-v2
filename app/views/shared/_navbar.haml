@@ -10,7 +10,7 @@
       = search_form_for @q, url: map_restaurants_url,
                       data: { map_target: "form" } do |f|
         = f.search_field :name_cont, placeholder: "Search restaurants...",
-                        data: { map_target: 'field', action: 'input->map#search' },
+                        data: { map_target: 'field', action: 'input->map#search:prevent' },
                         class: 'navbar__search-input'
   .navbar__menu-container{ data: { action: 'click->navbar#toggleDropdown click@window->navbar#closeDropdown' } }
     %box-icon{ name: 'menu', size: '24px' }

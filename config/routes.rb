@@ -8,7 +8,6 @@ Rails.application.routes.draw do
 
   root 'ramen_reviews#index'
 
-  # get '/map', to: 'restaurants#map'
   get '/hall_of_fame', to: 'restaurants#hall_of_fame'
 
   mount MissionControl::Jobs::Engine, at: "/jobs"

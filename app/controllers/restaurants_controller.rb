@@ -32,6 +32,7 @@ class RestaurantsController < ApplicationController
         color: helpers.star_color(restaurant.average_score),
         name: restaurant.name,
         jpn_name: restaurant.jpn_name,
+        average_score: restaurant.average_score,
         infowindow: render_to_string(partial: 'restaurants/info_window', locals: { restaurant:, review_images: restaurant.ramen_reviews.flat_map(&:review_images).take(10) })
       }
     end

@@ -6,7 +6,7 @@
 
 .modern-info-window {
   width: 280px;
-  max-width: 90vw; // Prevents overflow on small screens
+  max-width: 90vw;
   background: white;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
@@ -14,7 +14,6 @@
   backdrop-filter: blur(10px);
   position: relative;
 
-  // Mobile responsive breakpoints
   @media (max-width: 480px) {
     width: 280px;
     max-width: 85vw;
@@ -29,13 +28,10 @@
 
 .info-window-header {
   position: relative;
-  // 4:5 aspect ratio: height = width * (5/4)
-  // For 320px width: 320 * 1.25 = 400px
   overflow: hidden;
    border-radius: 16px;
 
   @media (max-width: 480px) {
-    // Maintains 4:5 ratio automatically
     border-radius: 12px 12px 0 0;
   }
 }
@@ -46,20 +42,7 @@
 
 .info-window-slide {
   position: relative;
-  // Ensure the slide maintains aspect ratio
-  // aspect-ratio: 4/5;
 }
-
-// .info-window-slide img {
-//   // width: 100%;
-//   height: 100%;
-//   object-fit: cover;
-//   transition: transform 0.3s ease;
-// }
-
-// .info-window-slide:hover img {
-//   transform: scale(1.05);
-// }
 
 .info-window-header-responsive {
   position: relative;
@@ -85,21 +68,13 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 80px; // Increased slightly for better visibility on taller images
+  height: 80px;
   background: linear-gradient(transparent, rgba(0,0,0,0.5));
   z-index: 2;
 }
 
 .info-window-content {
   padding: 20px;
-
-  // @media (max-width: 480px) {
-  //   padding: 16px;
-  // }
-
-  // @media (max-width: 360px) {
-  //   padding: 14px;
-  // }
 }
 
 .restaurant-name {
