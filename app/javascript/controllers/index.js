@@ -21,3 +21,6 @@ application.register("upload", UploadController)
 
 import SortableController from "./sortable_controller"
 application.register("sortable", SortableController)
+
+import AdvancedSearchController from './advanced_search_controller'
+application.register('advanced-search', AdvancedSearchController)

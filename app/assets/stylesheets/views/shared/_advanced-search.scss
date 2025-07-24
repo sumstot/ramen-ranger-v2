@@ -1,0 +1,349 @@
+.search-container {
+  max-width: 600px;
+  margin: 0 auto;
+  // position: relative;
+  width: 100%;
+}
+
+.main-search {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  // box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  padding: 16px 20px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.search-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 12px;
+}
+
+.advanced-search-toggle {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.advanced-search-toggle:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.advanced-search-toggle.active {
+  background: #fef2f2;
+  color: #e74c3c;
+}
+
+.search-button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.search-button:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* Advanced Search Panel */
+.advanced-search-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  margin-top: 8px;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.advanced-search-panel.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.filter-section {
+  margin-bottom: 24px;
+}
+
+.filter-section:last-child {
+  margin-bottom: 0;
+}
+
+.filter-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-title::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  background: #e74c3c;
+  border-radius: 2px;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.checkbox-item {
+  position: relative;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  background: #f9fafb;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  user-select: none;
+}
+
+.checkbox-label:hover {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+}
+
+.checkbox-input:checked + .checkbox-label {
+  background: #fef2f2;
+  border-color: $_button-hover-yellow;
+  color: $_button-hover-yellow;
+}
+
+.checkbox-label::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border: 2px solid #d1d5db;
+  border-radius: 4px;
+  margin-right: 8px;
+  transition: all 0.2s ease;
+}
+
+.checkbox-input:checked + .checkbox-label::before {
+  background: #e74c3c;
+  border-color: #e74c3c;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m13.854 3.646-7.5 7.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6 10.293l7.146-7.147a.5.5 0 0 1 .708.708z'/%3e%3c/svg%3e");
+}
+
+.rating-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rating-button {
+  background: none;
+  border: 2px solid #e5e7eb;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rating-button:hover {
+  border-color: #d1d5db;
+  background: #f9fafb;
+}
+
+.rating-button.active {
+  background: #fef2f2;
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.rating-stars {
+  color: #fbbf24;
+  font-size: 12px;
+}
+
+/* Panel Footer */
+.panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.clear-filters {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.clear-filters:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.apply-filters {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.apply-filters:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.active-filters.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.filter-tag {
+  background: #e74c3c;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-tag-close {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.filter-tag-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .search-container {
+      padding: 0 16px;
+  }
+
+  .advanced-search-panel {
+      margin-top: 8px;
+      padding: 20px;
+      border-radius: 12px;
+  }
+
+  .checkbox-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+  }
+
+  .rating-buttons {
+      flex-direction: column;
+      align-items: stretch;
+  }
+
+  .rating-button {
+      justify-content: center;
+  }
+
+  .panel-footer {
+      flex-direction: column;
+      gap: 12px;
+  }
+
+  .apply-filters {
+      width: 100%;
+      padding: 12px;
+  }
+}

@@ -21,4 +21,4 @@
         = render 'favorite', restaurant: restaurant, current_user: current_user
     .d-flex.align-items-center.pt-2
       %box-icon{ name: 'calendar-x', color: '#beb99b' }
-      %span.restaurant-card__days-closed-text= restaurant.display_days_closed
+      %span.restaurant-card__days-closed-text= restaurant.days_closed.join(', ')

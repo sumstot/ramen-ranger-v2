@@ -1,19 +1,19 @@
-// app/javascript/controllers/map_controller.js
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = ['map']
-
+  static targets = ['form', 'field', 'map']
   static values = {
     markers: Array,
   }
 
- connect() {
+  connect() {
+    this.markerInstances = []
+    this.markerClusterer = null
+    console.log('Element dataset:', this.element.dataset)
     if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
       this.initializeMap()
     } else {
       window.addEventListener('initMap', this.initializeMap.bind(this))
-
       setTimeout(() => {
         if (!this.map) {
           console.warn('Map not initialized, retrying...')
@@ -24,6 +24,9 @@ export default class extends Controller {
   }
 
   disconnect() {
+    if (this.markerClusterer) {
+      this.markerClusterer.clearMarkers()
+    }
     window.removeEventListener('initMap', this.initializeMap.bind(this))
   }
 
@@ -34,31 +37,157 @@ export default class extends Controller {
       center: { lat: 34.672314, lng: 135.484802 },
       zoom: 10,
       mapId: '5aa4719e81f42be2',
+      styles: [
+        {
+          featureType: 'poi',
+          elementType: 'labels',
+          stylers: [{ visibility: 'off' }],
+        },
+      ],
     }
     this.map = new google.maps.Map(this.mapTarget, mapOptions)
     this.addMarkersToMap()
   }
 
+  createAlternativeMarker(marker) {
+    const markerElement = document.createElement('div')
+    markerElement.className = 'modern-marker'
+    markerElement.innerHTML = `
+      <div class="modern-marker-container" style="
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      ">
+        <div class="modern-marker-badge" style="
+          background: ${marker.color};
+          color: white;
+          padding: 6px 10px;
+          border-radius: 16px;
+          font-size: 13px;
+          font-weight: 600;
+          box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          border: 2px solid white;
+          position: relative;
+          z-index: 2;
+          white-space: nowrap;
+        ">
+          <span>🍜</span>
+          <span>${parseFloat(marker.average_score || 0).toFixed(1)}</span>
+        </div>
+        <div class="modern-marker-arrow" style="
+          width: 0;
+          height: 0;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 10px solid ${marker.color};
+          margin-top: -2px;
+          filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        "></div>
+      </div>
+    `
+
+    markerElement.addEventListener('mouseenter', () => {
+      markerElement.querySelector('.modern-marker-container').style.transform =
+        'scale(1.05) translateY(-2px)'
+    })
+
+    markerElement.addEventListener('mouseleave', () => {
+      markerElement.querySelector('.modern-marker-container').style.transform =
+        'scale(1) translateY(0)'
+    })
+
+    return markerElement
+  }
+
   addMarkersToMap() {
-    const parser = new DOMParser()
+    this.clearMarkers()
+    this.markerInstances = []
+
     this.markersValue.forEach((marker) => {
-      const glyphSvgString = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: scaleX(-1);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);"><path d="M21 10H3a1 1 0 0 0-1 1 10 10 0 0 0 5 8.66V21a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1.34A10 10 0 0 0 22 11a1 1 0 0 0-1-1zm-5.45 8.16a1 1 0 0 0-.55.9V20H9v-.94a1 1 0 0 0-.55-.9A8 8 0 0 1 4.06 12h15.88a8 8 0 0 1-4.39 6.16zM9 9V7.93a4.53 4.53 0 0 0-1.28-3.15A2.49 2.49 0 0 1 7 3V2H5v1a4.53 4.53 0 0 0 1.28 3.17A2.49 2.49 0 0 1 7 7.93V9zm4 0V7.93a4.53 4.53 0 0 0-1.28-3.15A2.49 2.49 0 0 1 11 3V2H9v1a4.53 4.53 0 0 0 1.28 3.15A2.49 2.49 0 0 1 11 7.93V9zm4 0V7.93a4.53 4.53 0 0 0-1.28-3.15A2.49 2.49 0 0 1 15 3V2h-2v1a4.53 4.53 0 0 0 1.28 3.15A2.49 2.49 0 0 1 15 7.93V9z"></path></svg>'
-      const glyphSvg = parser.parseFromString(
-      glyphSvgString,
-      'image/svg+xml',
-      ).documentElement
-      const pinBackground = new google.maps.marker.PinElement({
-        background: marker.color,
-        borderColor: marker.color,
-        glyphColor: '#fff',
-        glyph: glyphSvg
+      const infowindow = new google.maps.InfoWindow({
+        content: marker.infowindow,
+        ariaLabel: 'restaurant',
+        pixelOffset: new google.maps.Size(0, -10),
       })
 
-      new google.maps.marker.AdvancedMarkerElement({
+      const markerElement = this.createAlternativeMarker(marker)
+
+      const markerInstance = new google.maps.marker.AdvancedMarkerElement({
         map: this.map,
         position: { lat: parseFloat(marker.lat), lng: parseFloat(marker.lng) },
-        content: pinBackground.element
+        content: markerElement,
+        title: marker.name,
       })
+
+      markerInstance.addListener('click', () => {
+        if (this.currentInfoWindow) {
+          this.currentInfoWindow.close()
+        }
+
+        this.currentInfoWindow = infowindow
+        infowindow.open({
+          anchor: markerInstance,
+          map: this.map,
+        })
+      })
+
+      this.markerInstances.push(markerInstance)
     })
+
+    this.initializeMarkerClusterer()
+  }
+
+  updateMarkers(newMarkers) {
+    this.markersValue = newMarkers
+    this.addMarkersToMap()
+  }
+
+  clearMarkers() {
+    if (this.markerClusterer) {
+      this.markerClusterer.clearMarkers()
+    }
+
+    this.markerInstances.forEach((marker) => {
+      marker.map = null
+    })
+    this.markerInstances = []
+
+    if (this.currentInfoWindow) {
+      this.currentInfoWindow.close()
+    }
+  }
+
+  search() {
+    if (this.timeout) {
+      clearTimeout(this.timeout)
+    }
+
+    this.timeout = setTimeout(() => {
+      this.performSearch()
+    }, 300)
+  }
+
+  async performSearch() {
+    const formData = new FormData(this.formTarget)
+    const params = new URLSearchParams(formData)
+
+    const response = await fetch(`${this.formTarget.action}?${params}`, {
+      headers: {
+        Accept: 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    })
+
+    if (response.ok) {
+      const data = await response.json()
+      console.log(data.markers)
+      this.updateMarkers(data.markers)
+    }
   }
 }

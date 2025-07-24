@@ -1,0 +1,18 @@
+.search-container
+  = search_form_for @q, url: root_path, method: :get, data: { controller: 'advanced-search', turbo_frame: 'search' } do |f|
+    .main-search
+      .search-input-wrapper
+        = f.search_field :soup_or_restaurant_name_or_restaurant_jpn_name_or_restaurant_station_or_restaurant_city_or_restaurant_prefecture_cont, placeholder: 'type, location, or name', oninput: 'this.form.requestSubmit()', class: 'search-input'
+        .search-actions
+          .advanced-search-toggle{ data: { 'advanced-search-target': 'toggleButton', action: 'click->advanced-search#toggleAdvancedSearch' } }
+            %box-icon{ name: 'slider', size: '20px' }
+    .advanced-search-panel{ data: { 'advanced-search-target': 'panel' } }
+      .filter-section
+        .filter-title Soup Type
+        .checkbox-grid
+          - RamenReview.soup.options.each do |value, label|
+            .checkbox-item
+              = check_box_tag "q[soup_in][]", value, params.dig(:q, :soup_in)&.include?(value.to_s), id: "soup_#{value}", class: "checkbox-input", data: { 'advanced-search-target': 'soupCheckbox'}, oninput: 'this.form.requestSubmit()'
+              = label_tag "soup_#{value}", label, class: "checkbox-label"
+      .panel-footer
+        %button.clear-filters{ data: { 'advanced-search-target': 'clearFiltersButton', action: 'click->advanced-search#clearFilters' } } Clear All Filters

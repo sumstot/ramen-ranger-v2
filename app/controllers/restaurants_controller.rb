@@ -22,13 +22,28 @@ class RestaurantsController < ApplicationController
   end
 
   def map
-    @restaurants = Restaurant.all
+    @q = Restaurant.ransack(params[:q])
+    @restaurants = @q.result
     @markers = @restaurants.geocoded.map do |restaurant|
       {
+        id: restaurant.id,
         lat: restaurant.latitude,
         lng: restaurant.longitude,
-        color: helpers.star_color(restaurant.average_score)
+        color: helpers.star_color(restaurant.average_score),
+        name: restaurant.name,
+        jpn_name: restaurant.jpn_name,
+        average_score: restaurant.average_score,
+        infowindow: render_to_string(partial: 'restaurants/info_window', locals: { restaurant:, review_images: restaurant.ramen_reviews.flat_map(&:review_images).take(10) })
       }
+    end
+
+    puts "Markers count: #{@markers.count}"
+    puts "First marker: #{@markers.first.inspect}" if @markers.any?
+    puts "=== END MAP ACTION ==="
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { markers: @markers } }
     end
   end
 
