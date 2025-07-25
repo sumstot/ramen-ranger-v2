@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def redirect_unless_admin?
+    redirect_to root_url unless current_user.admin?
+  end
+
   private
 
   def configure_permitted_parameters

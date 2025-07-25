@@ -1,0 +1,17 @@
+= link_to ramen_review_path(ramen_review), class: 'review-grid-item' do
+  .review-grid-image
+    - if ramen_review.review_images.any?
+      = image_tag ramen_review.review_images.first.image,
+                  alt: ramen_review.restaurant.name,
+                  class: 'grid-image'
+    - else
+      .placeholder-image
+        = icon 'utensils' # or whatever placeholder you prefer
+
+  .review-grid-overlay
+    .restaurant-name= truncate(ramen_review.restaurant.name, length: 20)
+    .d-flex.align-items-center
+      - score = ramen_review.score
+      - review_card_score_stars(score).each do |star|
+        %box-icon{ name: star[:name], type: star[:type], color: star[:color], size: '18px' }
+      %p.review-card__score.pl-4= score

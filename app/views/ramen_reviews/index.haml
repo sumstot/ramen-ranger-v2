@@ -1,9 +1,19 @@
 = render 'shared/navbar'
+.view-switcher
+  = form_with url: ramen_reviews_path, method: :get, local: false do |form|
+    = form.select :view,
+                  options_for_select([['Card View', 'card'], ['Grid View', 'grid']], @view_type),
+                  {},
+                  { onchange: 'this.form.requestSubmit()', class: 'view-select' }
 = turbo_frame_tag 'search', target: "_top" do
   = turbo_frame_tag :ramen_reviews_page, @pagy.page do
-    .ramen-reviews__container
+    .ramen-reviews__container{ class: "ramen-reviews__container-#{@view_type}" }
       - @ramen_reviews.each do |ramen_review|
-        = render 'review_card', ramen_review: ramen_review
-    - if @pagy.next
-      = turbo_frame_tag :ramen_reviews_page, @pagy.next, src: ramen_reviews_path(page: @pagy.next), loading: :lazy do
-        = tag.div 'Loading...'
+        - if @view_type == 'grid'
+          = render 'review_grid_item', ramen_review: ramen_review
+        - else
+          = render 'review_card', ramen_review: ramen_review
+
+  - if @pagy.next
+    = turbo_frame_tag :ramen_reviews_page, @pagy.next, src: ramen_reviews_path(page: @pagy.next, view: view_type, q: params[:q]), loading: :lazy do
+      = tag.div 'Loading...'

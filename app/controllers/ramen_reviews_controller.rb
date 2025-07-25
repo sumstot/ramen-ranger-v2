@@ -5,8 +5,14 @@ class RamenReviewsController < ApplicationController
   before_action :set_ramen_review, only: %i[show edit update]
 
   def index
+    @view_type = params[:view]&.in?(['card', 'grid']) ? params[:view] : 'card'
     @q = RamenReview.includes(:review_images).ransack(params[:q])
     @pagy, @ramen_reviews = pagy(@q.result.includes(:restaurant).distinct(true))
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def new

@@ -3,8 +3,31 @@
     = link_to root_path do
       = image_tag('ramenlogo.png')
 
-  - if current_page?(root_path)
+  - if current_page?(root_path) || current_page?(ramen_reviews_path)
     = render 'shared/advanced_search'
+    .view-switcher
+  = form_with url: ramen_reviews_path, method: :get, local: false, class: 'view-toggle-form' do |form|
+    -# = form.hidden_field :q, value: params[:q]&.to_unsafe_h&.to_query
+
+    .toggle-switch
+      = form.radio_button :view, 'card',
+                          checked: @view_type == 'card',
+                          id: 'view_card',
+                          onchange: 'this.form.requestSubmit()'
+      = form.radio_button :view, 'grid',
+                          checked: @view_type == 'grid',
+                          id: 'view_grid',
+                          onchange: 'this.form.requestSubmit()'
+
+      = form.label :view_card, class: 'toggle-option' do
+        %box-icon{ name: :card, size: '20px' }
+        -# %span Card
+
+      = form.label :view_grid, class: 'toggle-option' do
+        %box-icon{ name: :grid, type: :solid, size: '20px'}
+        -# %span Grid
+
+      .toggle-slider
   - if current_page?(map_restaurants_url)
     .navbar__search-container
       = search_form_for @q, url: map_restaurants_url,

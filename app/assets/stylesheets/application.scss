@@ -13,6 +13,7 @@
 @import 'shared/ramen-button';
 @import 'shared/favorite';
 @import 'shared/form';
+@import 'shared/toggle-view';
 
 @import 'views/shared/map';
 @import 'views/shared/navbar';
@@ -23,6 +24,7 @@
 @import 'views/ramen_reviews/review-card';
 @import 'views/ramen_reviews/restaurant-search-result';
 @import 'views/ramen_reviews/form';
+@import 'views/ramen_reviews/review-grid-item';
 
 @import 'views/restaurants/restaurants';
 @import 'views/restaurants/restaurant-card';
