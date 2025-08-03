@@ -11,7 +11,7 @@
       - selected_restaurant = @selected_restaurant || @ramen_review.restaurant
       - if selected_restaurant
         = render 'restaurant_search_result', restaurant: selected_restaurant
-    = link_to 'Add Restaurant', new_restaurant_path
+    = link_to 'Add Restaurant', new_restaurant_path, id: :new_restaurant, data: { turbo_stream: true }
   = simple_form_for @ramen_review, data: { turbo: false } do |f|
     = f.hidden_field :restaurant_id, value: @ramen_review&.restaurant_id ||@selected_restaurant&.id, data: { 'ramen-reviews--form-target': 'restaurantId' }
 
