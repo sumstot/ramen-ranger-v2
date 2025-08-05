@@ -5,8 +5,9 @@
     action: 'click->ramen-reviews--form#selectRestaurant'
   }
 }
-  .restaurant-search-result__info{ class: ('is-selected' if @selected_restaurant.present? || @ramen_review.restaurant.present?) }
-    .restaurant-search-result__name= restaurant.name
-    .restaurant-search-result__name-jp= restaurant.jpn_name
-    .restaurant-search-result__details
-      = [restaurant.station, restaurant.prefecture].compact.join(' • ')
+  = turbo_frame_tag :selected_restaurant do
+    .restaurant-search-result__info.is-selected
+      .restaurant-search-result__name= restaurant.name
+      .restaurant-search-result__name-jp= restaurant.jpn_name
+      .restaurant-search-result__details
+        = [restaurant.station, restaurant.prefecture].compact.join(' • ')

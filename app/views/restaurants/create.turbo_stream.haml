@@ -1,0 +1,2 @@
+= turbo_stream.replace :new_restaurant, partial: 'restaurants/form', locals: { restaurant: Restaurant.new}
+= turbo_stream.append :selected_restaurant, partial: 'ramen_reviews/restaurant_search_result', locals: { restaurant: @restaurant}
