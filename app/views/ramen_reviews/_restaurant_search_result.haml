@@ -1,13 +1,14 @@
-.restaurant-item{ role: 'button',
-  data: {
-    restaurant_id: restaurant.id,
-    restaurant_name: restaurant.name,
-    action: 'click->ramen-reviews--form#selectRestaurant'
-  }
-}
-  = turbo_frame_tag :selected_restaurant do
-    .restaurant-search-result__info.is-selected
-      .restaurant-search-result__name= restaurant.name
-      .restaurant-search-result__name-jp= restaurant.jpn_name
-      .restaurant-search-result__details
-        = [restaurant.station, restaurant.prefecture].compact.join(' • ')
+= turbo_frame_tag :selected_restaurant do
+  - if selected_restaurant
+    .restaurant-item{ role: 'button',
+      data: {
+        restaurant_id: selected_restaurant.id,
+        restaurant_name: selected_restaurant.name,
+        action: 'click->ramen-reviews--form#selectRestaurant'
+      }
+    }
+      .restaurant-search-result__info.is-selected
+        .restaurant-search-result__name= selected_restaurant.name
+        .restaurant-search-result__name-jp= selected_restaurant.jpn_name
+        .restaurant-search-result__details
+          = [selected_restaurant.station, selected_restaurant.prefecture].compact.join(' • ')
