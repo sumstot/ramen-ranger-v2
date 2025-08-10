@@ -17,17 +17,12 @@ class RestaurantsController < ApplicationController
     respond_to do |format|
       if @restaurant.save
         format.html { redirect_to restaurant_url(@restaurant) }
-        format.turbo_stream
+        format.turbo_stream { @selected_restaurant = @restaurant }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream { render :new }
       end
     end
-    # if @restaurant.save
-    #   redirect_to return_url(@restaurant)
-    # else
-    #   render :new, status: :unprocessable_entity
-    # end
   end
 
   def map

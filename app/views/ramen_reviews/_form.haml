@@ -9,11 +9,13 @@
       = render 'restaurant_search_results', restaurants: @restaurants
     .mt-2{ data: { 'ramen-reviews--form-target': 'selectedRestaurantContainer' } }
       - selected_restaurant = @selected_restaurant || @ramen_review.restaurant
-      = render 'restaurant_search_result', selected_restaurant: selected_restaurant
+      = turbo_frame_tag :selected_restaurant do
+        - if selected_restaurant.present?
+          = render 'restaurant_search_result', restaurant: selected_restaurant
     = link_to 'Add Restaurant', new_restaurant_path, id: :new_restaurant, data: { turbo_stream: true }
   = simple_form_for @ramen_review, data: { turbo: false } do |f|
     = turbo_frame_tag :selected_restaurant_id_field do
-      = f.hidden_field :restaurant_id, value: @ramen_review&.restaurant_id ||@selected_restaurant&.id, data: { 'ramen-reviews--form-target': 'restaurantId' }
+      = render 'restaurant_id_field', restaurant_id: @ramen_review&.restaurant_id || @selected_restaurant&.id
 
     %label.form-label Upload images
     .image-upload-area.mb-4{ data: { controller: 'upload', sortable_target: 'container', upload_target: 'container' } }

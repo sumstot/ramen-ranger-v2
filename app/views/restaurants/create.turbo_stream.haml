@@ -1,5 +1,4 @@
 = turbo_stream.replace :new_restaurant do
   = link_to 'Add Restaurant', new_restaurant_path, id: :new_restaurant, data: { turbo_stream: true }
-= turbo_stream.replace :selected_restaurant, partial: 'ramen_reviews/restaurant_search_result', locals: { selected_restaurant: @restaurant}
-= turbo_stream.replace :selected_restaurant_id_field do
-  = f.hidden_field :restaurant_id, value: @ramen_review&.restaurant_id ||@restaurant&.id, data: { 'ramen-reviews--form-target': 'restaurantId' }
+= turbo_stream.replace :selected_restaurant, partial: 'ramen_reviews/restaurant_search_result', locals: { restaurant: @restaurant}
+= turbo_stream.replace :selected_restaurant_id_field, partial: 'ramen_reviews/restaurant_id_field', locals: { restaurant_id: @restaurant.id }
