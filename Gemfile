@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| 'https://github.com/#{repo}.git' }
 
-ruby file: '.ruby-version'
+ruby file: 'mise.toml'
 
 gem 'rails', '~> 8.0.2'
 gem 'sqlite3', '>= 2.1'
