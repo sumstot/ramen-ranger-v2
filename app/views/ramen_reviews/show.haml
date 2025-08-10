@@ -1,10 +1,68 @@
 = render 'shared/navbar'
-%h1 show
-.review-card__container.mb-6
+
+.review-card__container.review-card__container--show
   - if @ramen_review.review_images.present?
-    .swiper{ data: { controller: 'swiper', swiper_target: 'swiper' } }
-      .swiper-wrapper
-        - @ramen_review.review_images.each do |review_image|
-          .swiper-slide
-            = image_tag(review_image.image)
-      .swiper-pagination{ data: { swiper_target: 'pagination' } }
+    .review-card__gallery
+      .swiper{ data: { controller: 'swiper', swiper_target: 'swiper' } }
+        .swiper-wrapper
+          - @ramen_review.review_images.each do |review_image|
+            .swiper-slide
+              = image_tag(review_image.image)
+        .swiper-pagination{ data: { swiper_target: 'pagination' } }
+      -# .review-card__gallery-counter
+      -#   %span#currentImage 1
+      -#   \/
+      -#   %span#totalImages= @ramen_review.review_images.count
+
+  .review-card__content
+    .review-card__header
+      .review-card__name= @ramen_review.restaurant.name
+      .review-card__name-jp= @ramen_review.restaurant.jpn_name
+
+      .review-card__meta
+        .review-card__rating
+          .review-card__stars
+            - score = @ramen_review.score
+            - review_card_score_stars(score).each do |star|
+              %box-icon{ name: star[:name], type: star[:type], color: star[:color], size: '18px' }
+          .review-card__rating-value= score
+
+        = link_to '#anchor-map' do
+          .review-card__location
+            %box-icon{ name: "map-pin", color: "#6c757d", type: "regular", size: '18px' }
+            = @ramen_review.restaurant.city
+            %box-icon{ name: 'train', color: "#6c757d", type: 'regular', size: '18px'}
+            = "#{@ramen_review.restaurant.station} Station"
+
+        .review-card__date= @ramen_review.created_at.strftime("%Y/%m/%d")
+
+    .review-card__review
+      .review-card__review-title My Review
+      .review-card__review-text
+        = simple_format(@ramen_review.review)
+
+      .review-card__tags
+        .review-card__tag= @ramen_review.soup
+        .review-card__tag= @ramen_review.price
+        .review-card__tag Must Try
+  .review-card__map
+    #anchor-map.review-card__map-title
+      %box-icon{ name: "map-pin", color: "#1a1a1a", type: "regular", size: "18px" }
+      Find This Place
+    .review-card__map-container
+      %div{ data: { controller: 'map', map_markers_value: @marker.to_json } }
+        #js-map{ data: { map_target: 'map' }, style: "height: 200px;" }
+
+  .review-card__actions
+    %button.review-card__btn.review-card__btn--secondary
+      %svg.review-card__btn-icon{ viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", 'stroke-width': "2" }
+        %path{ d: "M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7z" }
+      Save
+    %button.review-card__btn.review-card__btn--primary
+      -# %box-icon{ name: 'share', color: 'white', type: 'regular', size: '24px' }
+      %svg.review-card__btn-icon{ viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", 'stroke-width': "2" }
+        %circle{ cx: "18", cy: "5", r: "3" }
+        %circle{ cx: "6", cy: "12", r: "3" }
+        %circle{ cx: "18", cy: "19", r: "3" }
+        %path{ d: "M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" }
+      Share

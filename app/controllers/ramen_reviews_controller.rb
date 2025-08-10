@@ -17,7 +17,17 @@ class RamenReviewsController < ApplicationController
     render partial: 'restaurant_search_results', restaurants: @restaurants if turbo_frame_request?
   end
 
-  def show; end
+  def show
+    @restaurant = @ramen_review.restaurant
+    if @restaurant.geocoded?
+      @marker = [{
+          lat: @restaurant.latitude,
+          lng: @restaurant.longitude,
+          color: helpers.star_color(@restaurant.average_score),
+          average_score: @restaurant.average_score
+      }]
+    end
+  end
 
   def edit
     @ramen_review = RamenReview.includes(review_images: {image_attachment: :blob}).find(params[:id])
