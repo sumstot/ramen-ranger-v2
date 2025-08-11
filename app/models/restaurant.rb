@@ -19,7 +19,7 @@ class Restaurant < ApplicationRecord
   end
 
   def display_images
-    first_images = fetch_first_images
+    first_images = fetch_first_images.compact
     additional_images = fetch_additional_images(first_images) if first_images.size < 3
     (first_images + additional_images.to_a).uniq(&:id)
   end
