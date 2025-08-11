@@ -1,5 +1,6 @@
 class RamenReview < ApplicationRecord
   extend Enumerize
+  include Favoritable
   belongs_to :restaurant
   has_many :review_images, -> { order(position: :asc) }, dependent: :destroy
   has_rich_text :content

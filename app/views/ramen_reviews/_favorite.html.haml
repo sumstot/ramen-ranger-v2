@@ -1,0 +1,10 @@
+= turbo_frame_tag ramen_review, :favorite, style: 'flex: 1;' do
+  = link_to ramen_review_favorite_path(ramen_review),
+            class: 'review-card__btn review-card__btn--secondary',
+            method: :patch,
+            data: { turbo_method: :patch } do
+    %box-icon.review-card__btn-icon{ favorite_icon_hash(ramen_review, current_user) }
+    - if ramen_review.favorited_by?(current_user)
+      Saved
+    - else
+      Save
